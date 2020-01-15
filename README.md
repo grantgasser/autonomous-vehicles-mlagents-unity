@@ -1,2 +1,5 @@
-# advanced-deep-learning-project
-Advanced Deep Learning Project
+# Advanced Deep Learning Project
+
+# Authors
+* Grant Gasser
+* Blaine Rothrock
