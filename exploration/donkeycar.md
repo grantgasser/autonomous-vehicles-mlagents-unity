@@ -1,5 +1,0 @@
-# DonkeyCar Exploration
-
-[Donkey Car](https://www.donkeycar.com/) is a open source DIY driving platform. We are interested  in the simulation platform which supports training neural networks with TensorFlow to drive on tracks built in Unity. To start exploring this project and we first followed [this](https://docs.donkeycar.com/guide/simulator/) tutorial in the official Donkey Car documentation.
-
-Installation was fairly simple, requiring first [Donkey Car Gym](https://github.com/tawnkramer/gym-donkeycar/releases) and the [Donkey Car Host](https://docs.donkeycar.com/guide/install_software/#step-1-install-software-on-host-pc) software (we do not have a physical Donkey Car). After installation we created a instance of car on our local machine. We are using a Ubuntu machine with GPU capability. We did not alter the default settings. In order to use Donkey Car Gym we need the [simulator](https://github.com/tawnkramer/sdsandbox/tree/donkey), which is another repo not directly related to the Donkey project. The simulator runs are a standalone application.
