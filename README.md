@@ -6,6 +6,7 @@
 
 ## DonkeyCar Report & Thoughts
 * [DonkeyCar Docs](https://docs.donkeycar.com/)
+* See `exploration/` for report on DonkeyCar
 
 ## Self-Driving Car Research
 ### Tesla
@@ -21,8 +22,20 @@ Eight surround **cameras** provide 360 degrees of visibility around the car at u
   - radar can go thru fog, dust, snow, rain, etc. where lidar isn't great; lidar (_light detection and ranging_) uses ultraviolet, visible, or near infrared light to image objects
   - detection is best outside/away from visual spectrum
   - Elon: high precision GPS maps are a really bad idea
-* 
-### More
+  
+### NVIDIA
+* [Conv Net](https://devblogs.nvidia.com/deep-learning-self-driving-cars/) approach: imitate driver
+* Input: Images, Targets: (wheel angle)
+
+## Tentative Plan
+* Add randomness to environment to avoid overfitting or have many tracks
+* Could do curriculum training (straight line-> one curve -> many curves...); difficulty starts easy and increases
+* Baseline: lane keeping with RL agent, after trained, collect images (1-8 cameras) with associated wheel angle and acceleration
+* 2nd goal: Conv Net (TF); Input: Images collected from RL agent and (our driving), Targets: (wheel angle, acceleration, etc.)
+* Lofty goal: Use lidar (or radar) and add several RL agents 
+
+## Questions 
+* How to avoid overfitting (memorizing track)? How many different tracks do we need? Can we add randomness to the tracks in some way?
 
 ## Unity Environment + ML Agents Proposal
 * [mlagents repo](https://github.com/Unity-Technologies/ml-agents)
