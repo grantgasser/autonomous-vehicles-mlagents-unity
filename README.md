@@ -8,7 +8,8 @@
 * [DonkeyCar Docs](https://docs.donkeycar.com/)
 
 ## Self-Driving Car Research
-* Tesla Sensors:
+### Tesla
+* Sensors:
 Eight surround **cameras** provide 360 degrees of visibility around the car at up to 250 meters of range. Twelve updated **ultrasonic sensors** complement this vision, allowing for detection of both hard and soft objects at nearly twice the distance of the prior system. A forward-facing **radar** with enhanced processing provides additional data about the world on a redundant wavelength that is able to see through heavy rain, fog, dust and even the car ahead. **Sonar devices** (like parking sensors) detect objects in close range.
   - Ultrasonic: usually short distance
   - Radar: like an echo but with radio waves (long wave lengths on electromagnetic spectrum) instead of sound waves
@@ -21,6 +22,7 @@ Eight surround **cameras** provide 360 degrees of visibility around the car at u
   - detection is best outside/away from visual spectrum
   - Elon: high precision GPS maps are a really bad idea
 * 
+### More
 
 ## Unity Environment + ML Agents Proposal
 * [mlagents repo](https://github.com/Unity-Technologies/ml-agents)
