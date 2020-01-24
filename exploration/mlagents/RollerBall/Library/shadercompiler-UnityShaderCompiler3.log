@@ -1,0 +1,54 @@
+Base path: '/Applications/Unity/Hub/Editor/2019.2.18f1/Unity.app/Contents', plugins path '/Applications/Unity/Hub/Editor/2019.2.18f1/Unity.app/Contents/PlaybackEngines'
+Cmd: initializeCompiler
+Cmd: compileComputeKernel
+  api=14 insize=7960 outsize=2550 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=64076 outsize=6622 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=9919 outsize=2952 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=2960 outsize=4288 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=8584 outsize=16876 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=3119 outsize=3829 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=44336 outsize=4835 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=44336 outsize=3587 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=44336 outsize=2940 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=5176 outsize=7273 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=3364 outsize=3459 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=3872 outsize=4277 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=3002 outsize=3873 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=29386 outsize=2313 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=29386 outsize=1205 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=29386 outsize=2640 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=29386 outsize=2677 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=29386 outsize=2655 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=1419 outsize=1449 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=2344 outsize=1950 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=2245 outsize=1845 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=2997 outsize=3368 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=2838 outsize=3177 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=2860 outsize=3025 ok=1
+Cmd: compileSnippet
+  api=14 type=1 insize=24152 outsize=13998 kw=UNITY_PASS_FORWARDBASE DIRECTIONAL SHADOWS_SCREEN LIGHTPROBE_SH pd=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_COLORSPACE_GAMMA UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR ok=1
+
+Quitting shader compiler process

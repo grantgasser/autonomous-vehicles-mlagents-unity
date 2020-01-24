@@ -1,0 +1,60 @@
+Base path: '/Applications/Unity/Hub/Editor/2019.2.18f1/Unity.app/Contents', plugins path '/Applications/Unity/Hub/Editor/2019.2.18f1/Unity.app/Contents/PlaybackEngines'
+Cmd: initializeCompiler
+Cmd: translateComputeKernel
+  api=14 insize=2761 outsize=2729 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=9919 outsize=2923 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=2955 outsize=4282 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=24335 outsize=4252 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=7335 outsize=3842 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=3930 outsize=6263 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=44336 outsize=2923 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=44336 outsize=2968 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=44336 outsize=2986 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=44336 outsize=3761 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=44336 outsize=3492 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=3693 outsize=4088 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=3325 outsize=3406 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=3453 outsize=3646 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=4395 outsize=5629 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=3790 outsize=4161 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=29386 outsize=2087 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=29386 outsize=2231 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=29386 outsize=2135 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=29386 outsize=2543 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=29386 outsize=2691 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=29386 outsize=2740 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=2311 outsize=1977 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=2350 outsize=2033 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=2801 outsize=3109 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=2892 outsize=3210 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=2793 outsize=3105 ok=1
+Cmd: compileSnippet
+  api=14 type=0 insize=24152 outsize=3217 kw=UNITY_PASS_FORWARDBASE DIRECTIONAL SHADOWS_SCREEN LIGHTPROBE_SH pd=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_COLORSPACE_GAMMA UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR ok=1
+
+Quitting shader compiler process
