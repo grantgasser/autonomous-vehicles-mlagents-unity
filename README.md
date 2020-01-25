@@ -8,6 +8,10 @@
 * [DonkeyCar Docs](https://docs.donkeycar.com/)
 * See `exploration/` for report on DonkeyCar
 
+## Unity Environment + ML Agents Proposal
+* [mlagents repo](https://github.com/Unity-Technologies/ml-agents)
+* [mlagents paper](https://arxiv.org/pdf/1809.02627.pdf)
+
 ## Self-Driving Car Research
 ### Tesla
 * Sensors:
@@ -23,21 +27,20 @@ Eight surround **cameras** provide 360 degrees of visibility around the car at u
   - detection is best outside/away from visual spectrum
   - Elon: high precision GPS maps are a really bad idea
   
-### NVIDIA
+### NVIDIA Self-driving software
 * [Conv Net](https://devblogs.nvidia.com/deep-learning-self-driving-cars/) approach: imitate driver
 * Input: Images, Targets: (wheel angle)
+
+## Lidar Approach
+* Hardly uses machine learning, mostly about signal processing, integration, and planning
 
 ## Tentative Plan
 * Add randomness to environment to avoid overfitting or have many tracks
 * Could do curriculum training (straight line-> one curve -> many curves...); difficulty starts easy and increases
-* Baseline: lane keeping with RL agent, after trained, collect images (1-8 cameras) with associated wheel angle and acceleration
+* Baseline goal: lane keeping with RL agent, after trained, collect images (1-8 cameras) with associated wheel angle and acceleration
 * 2nd goal: Conv Net (TF); Input: Images collected from RL agent and (our driving), Targets: (wheel angle, acceleration, etc.)
 * Lofty goal: Use lidar (or radar) and add several RL agents 
 
 ## Questions 
 * How to avoid overfitting (memorizing track)? How many different tracks do we need? Can we add randomness to the tracks in some way?
-
-## Unity Environment + ML Agents Proposal
-* [mlagents repo](https://github.com/Unity-Technologies/ml-agents)
-* [mlagents paper](https://arxiv.org/pdf/1809.02627.pdf)
 
