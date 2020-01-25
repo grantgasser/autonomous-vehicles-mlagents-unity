@@ -8,7 +8,7 @@
 * [DonkeyCar Docs](https://docs.donkeycar.com/)
 * See `exploration/` for report on DonkeyCar
 
-## Unity Environment + ML Agents Proposal
+## Unity Environment + ML Agents  
 * [mlagents repo](https://github.com/Unity-Technologies/ml-agents)
 * [mlagents paper](https://arxiv.org/pdf/1809.02627.pdf)
 
