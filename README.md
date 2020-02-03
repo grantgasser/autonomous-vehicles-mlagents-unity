@@ -19,7 +19,7 @@ Eight surround **cameras** provide 360 degrees of visibility around the car at u
   - Ultrasonic: usually short distance
   - Radar: like an echo but with radio waves (long wave lengths on electromagnetic spectrum) instead of sound waves
   - [Autonomy pres](https://www.youtube.com/watch?v=HM23sjhtk4Q)
-  - Elon Musk: "Lidar is a fools errand. Anyone relying on lidar is doomed. Expensive, unecessary.
+  - Elon Musk doesn't like Lidar
   - Karpathy: Can annotate video using a sensor like radar ("this car you're seeing in front of you in this box is 17m away"), train neural network on that
   - self-supervised way of learning depth with video: just be consistent in all predictions (no targets)
   - images/video contain are much more information rich (lidar can't tell you the difference between plastic bag or tire)
@@ -30,9 +30,6 @@ Eight surround **cameras** provide 360 degrees of visibility around the car at u
 ### NVIDIA Self-driving software
 * [Conv Net](https://devblogs.nvidia.com/deep-learning-self-driving-cars/) approach: imitate driver
 * Input: Images, Targets: (wheel angle)
-
-## Lidar Approach
-* Hardly uses machine learning, mostly about signal processing, integration, and planning
 
 ## Tentative Plan
 * Add randomness to environment to avoid overfitting or have many tracks
