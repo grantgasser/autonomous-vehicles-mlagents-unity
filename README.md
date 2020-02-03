@@ -1,5 +1,5 @@
-# Advanced Deep Learning Project 
-## Autonomous Driving in Unity using ML Agents
+# Autonomous Driving in Unity using ML Agents 
+## Advanced Deep Learning Project
 
 ### Authors
 * [Grant Gasser](https://www.linkedin.com/in/grantgasser/)
