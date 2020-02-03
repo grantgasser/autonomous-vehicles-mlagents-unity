@@ -1,14 +1,17 @@
-# Advanced Deep Learning Project
+# Advanced Deep Learning Project 
+## Autonomous Driving in Unity using ML Agents
 
-## Authors
+### Authors
 * [Grant Gasser](https://www.linkedin.com/in/grantgasser/)
 * [Blaine Rothrock](https://www.linkedin.com/in/brothrock/)
 
 ## DonkeyCar Report & Thoughts
 * [DonkeyCar Docs](https://docs.donkeycar.com/)
 * See `exploration/` for report on DonkeyCar
+* Decided to ditch DonkeyCar and create our own driving environment in Unity
 
-## Unity Environment + ML Agents  
+## Unity Environment + ML Agents
+* With our environment in Unity, we will use the ML Agents toolkit to train our car to drive within lanes using reinforcement learning
 * [mlagents repo](https://github.com/Unity-Technologies/ml-agents)
 * [mlagents paper](https://arxiv.org/pdf/1809.02627.pdf)
 
@@ -32,12 +35,8 @@ Eight surround **cameras** provide 360 degrees of visibility around the car at u
 * Input: Images, Targets: (wheel angle)
 
 ## Tentative Plan
-* Add randomness to environment to avoid overfitting or have many tracks
-* Could do curriculum training (straight line-> one curve -> many curves...); difficulty starts easy and increases
-* Baseline goal: lane keeping with RL agent, after trained, collect images (1-8 cameras) with associated wheel angle and acceleration
-* 2nd goal: Conv Net (TF); Input: Images collected from RL agent and (our driving), Targets: (wheel angle, acceleration, etc.)
-* Lofty goal: Use lidar (or radar) and add several RL agents 
-
-## Questions 
-* How to avoid overfitting (memorizing track)? How many different tracks do we need? Can we add randomness to the tracks in some way?
+* Considering **behavorial cloning** or **curriculum learning** to assist the learning process
+* Part 1: lane keeping with RL agent, after trained, collect images (1-8 cameras) with associated wheel angle and acceleration
+* Part 2: Conv Net (TF); Input: Images collected from RL agent and (our driving), Targets: (wheel angle, acceleration, etc.)
+* Stretch goal: Use lidar (or radar) and add several RL agents 
 
