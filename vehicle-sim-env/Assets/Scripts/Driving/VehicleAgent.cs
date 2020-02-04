@@ -29,6 +29,11 @@ public class VehicleAgent : Agent
 
 	public float wheelAngle = 0.0f;
 	public float constantTorque = 100f;
+	public Vector3 agentResetPosition;
+	public Vector3 agentResetRotation;
+
+	public GameObject startBox;
+	public GameObject endBox;
 
 	public GameObject fd_collision;
 
@@ -44,10 +49,18 @@ public class VehicleAgent : Agent
 	private float frontDistanceToCenter = 0.0f;
 	private float backDistanceToCenter = 0.0f;
 
+	public string hello;
+
+	private float reward = 0.0f;
+	private float timer = 0.0f;
+
+	private Rigidbody rBody;
+
 	// Find all the WheelColliders down in the hierarchy.
 	void Start()
 	{
 		m_Wheels = GetComponentsInChildren<WheelCollider>();
+		rBody = GetComponent<Rigidbody>();
 
 		var chassis = GameObject.Find("FamilyCarChassis").GetComponent<MeshFilter>().mesh.bounds.size;
 
@@ -87,10 +100,13 @@ public class VehicleAgent : Agent
 
     public override void CollectObservations()
     {
-        AddVectorObs(wheelAngle);
-        AddVectorObs(frontDistanceToCenter);
-		AddVectorObs(backDistanceToCenter);
-    }
+        // NORMALIZE
+        AddVectorObs(this.wheelAngle / maxAngle);
+        AddVectorObs(this.frontDistanceToCenter/15f);
+        AddVectorObs(this.backDistanceToCenter/15f);
+        AddVectorObs(rBody.velocity.x);
+		AddVectorObs(rBody.velocity.z);
+	}
 
     public override void AgentAction(float[] vectorAction)
     {
@@ -98,10 +114,15 @@ public class VehicleAgent : Agent
 
 
 		// calculate distance
-		var frontDistanceToCenter = (frontDriver.distanceToMarker - 5.0f) - frontPassenger.distanceToMarker;
-        var backDistanceToCenter = (backDriver.distanceToMarker - 5.0f) - backPassenger.distanceToMarker;
+		frontDistanceToCenter = (frontDriver.distanceToMarker - 5.0f) - frontPassenger.distanceToMarker;
+        backDistanceToCenter = (backDriver.distanceToMarker - 5.0f) - backPassenger.distanceToMarker;
+		print("distance: " + this.frontDistanceToCenter + ":" + this.backDistanceToCenter);
 
-		float wheelDelta = vectorAction[0];
+		Monitor.Log("Front Distance", frontDistanceToCenter/15f, null);
+		Monitor.Log("Back Distance", backDistanceToCenter/15f, null);
+
+		float wheelDelta = vectorAction[0] * 5f;
+		Monitor.Log("Wheel Delta", "" + wheelDelta, null);
 
         foreach (WheelCollider wheel in m_Wheels)
         {
@@ -158,22 +179,95 @@ public class VehicleAgent : Agent
 		}
 
 
-        // REWARD
-        if (Math.Abs(frontDistanceToCenter) > 7)
+		// REWARD
+
+		AddReward(0.025f);
+
+		this.timer += Time.deltaTime;
+		if (this.timer > 100.0f)
         {
-			Done();
+			print("- END: time");
+			
+            Done();
+			SetReward(-1.0f);
+			return;
+		}
+
+		if (Math.Abs(this.frontDistanceToCenter) < 0.1
+			&& Math.Abs(backDistanceToCenter) < 0.1)
+		{
+			AddReward(0.1f);
+		}
+		else {
+			AddReward(-0.1f);
         }
 
-		if (transform.position.y > 5.0f)
-        {
-			Done();
-        }
 
-		if (transform.position.y < 0.0f)
+   //     if (Math.Abs(wheelDelta) < 0.25)
+   //     {
+			//this.reward += 0.01f;
+   //     }
+        //else
+        //{
+        //    this.reward -= 0.02f;
+        //}
+
+        print("reward: " + reward);
+
+		if (Math.Abs(this.frontDistanceToCenter) > 10.0f)
+        {
+			print("- END: front distance > 7");
+			
+			Done();
+			SetReward(-1.0f);
+			return;
+		}
+
+		if (this.transform.position.y > 5.0f)
+        {
+			print("- END: y > 5");
+			
+			Done();
+			SetReward(-1.0f);
+			return;
+		}
+
+		if (this.transform.position.y < 0.0f)
 
 		{
+			print("- END: y < 0");
+            
 			Done();
+			SetReward(-1.0f);
+			return;
 		}
+
+
+		var distanceToEnd = Vector3.Distance(
+			endBox.transform.localPosition,
+			this.transform.localPosition
+		);
+
+		print("distance to end: " + distanceToEnd);
+
+		if (distanceToEnd < 10.0f)
+        {
+			
+			Done();
+			SetReward(1.0f);
+			return;
+		}
+
+		//Monitor.Log("Current Reward", "" + this.reward, null);
+
+
+
+
+		//     if (Math.Abs(this.transform.eulerAngles.z) > 5)
+		//     {
+		//print("END: rotation z > 5");
+		//Done();
+		//     }
 	}
 
 
@@ -210,10 +304,19 @@ public class VehicleAgent : Agent
 
 	public override void AgentReset()
 	{
-		this.transform.localPosition = new Vector3(
-			-169.2f,
-			139.60f,
-			-115.86f
-		);
+
+		this.timer = 0.0f;
+        this.reward = 0f;
+		this.rBody.angularVelocity = Vector3.zero;
+		this.rBody.velocity = Vector3.zero;
+
+		this.transform.localPosition = agentResetPosition;
+		this.transform.eulerAngles = agentResetRotation;
+		this.wheelAngle = 0.0f;
+
+		foreach (WheelCollider wheel in m_Wheels)
+		{
+			wheel.steerAngle = 0.0f;
+		}
 	}
 }

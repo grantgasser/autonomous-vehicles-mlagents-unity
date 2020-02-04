@@ -42,14 +42,15 @@ public class CollidingWheel : MonoBehaviour
             switch (hit.collider.name)
             {
                 case "Road-Guide-Right":
-                    print("dist to right: " + distance);
                     distanceToMarker = distance;
                     break;
                 case "Road-Guide-Left":
-                    print("dist to left: " + distance);
                     distanceToMarker = distance;
                     break;
             }
+        } else
+        {
+            distanceToMarker = 100.0f;
         }
     }
 }
