@@ -5,7 +5,8 @@ using MLAgents;
 
 public class VehicleAgent : Agent
 {
-	[Tooltip("Maximum steering angle of the wheels")]
+    // PUBLIC CLASS VARIABLE
+    [Tooltip("Maximum steering angle of the wheels")]
 	public float maxAngle = 30f;
 	[Tooltip("Maximum torque applied to the driving wheels")]
 	public float maxTorque = 300f;
@@ -21,37 +22,37 @@ public class VehicleAgent : Agent
 	[Tooltip("Simulation sub-steps when the speed is below critical.")]
 	public int stepsAbove = 1;
 
-	[Tooltip("Lane Size of the lane from Road Architech")]
-	public float laneWidth = 5f;
-	public float vehicleWidth = 1.89f;
-	public float shoulderWidth = 3f;
-	public float markerWidthFromRoad = 7f;
-
-	public float wheelAngle = 0.0f;
+    [Tooltip("Constant Torque on the wheels.")]
 	public float constantTorque = 100f;
-	public Vector3 agentResetPosition;
+
+	public float roadGuideOffset = 15f;
+	public float laneWidth = 5f;
+
+    [Tooltip("Vehicle Starting Position")]
+    public Vector3 agentResetPosition;
+	[Tooltip("Vehicle Rotation Position")]
 	public Vector3 agentResetRotation;
 
-	public GameObject startBox;
+	[Tooltip("Ending Object: ends episode when reached")]
 	public GameObject endBox;
-
-	public GameObject fd_collision;
 
 	[Tooltip("The vehicle's drive type: rear-wheels drive, front-wheels drive or all-wheels drive.")]
 	public DriveType driveType;
 
-	private WheelCollider[] m_Wheels;
+    // PRIVATE VARIABLES
+
+    // wheels
+    private WheelCollider[] m_Wheels;
     private CollidingWheel frontDriver;
 	private CollidingWheel frontPassenger;
 	private CollidingWheel backDriver;
 	private CollidingWheel backPassenger;
 
+    // positioning
+    private float wheelAngle = 0.0f;
 	private float frontDistanceToCenter = 0.0f;
 	private float backDistanceToCenter = 0.0f;
 
-	public string hello;
-
-	private float reward = 0.0f;
 	private float timer = 0.0f;
 
 	private Rigidbody rBody;
@@ -100,10 +101,18 @@ public class VehicleAgent : Agent
 
     public override void CollectObservations()
     {
-        // NORMALIZE
+        // Normalized obs
+
+        // angle of the wheel (-1, 1)
         AddVectorObs(this.wheelAngle / maxAngle);
-        AddVectorObs(this.frontDistanceToCenter/15f);
-        AddVectorObs(this.backDistanceToCenter/15f);
+
+        // front axle alignment (-1, 1)
+        AddVectorObs(this.frontDistanceToCenter);
+
+        // back axle alignment (-1, 1)
+        AddVectorObs(this.backDistanceToCenter);
+
+        // Vehicle Velocity
         AddVectorObs(rBody.velocity.x);
 		AddVectorObs(rBody.velocity.z);
 	}
@@ -112,39 +121,83 @@ public class VehicleAgent : Agent
     {
 		m_Wheels[0].ConfigureVehicleSubsteps(criticalSpeed, stepsBelow, stepsAbove);
 
+		/*
+         *int signal = Mathf.FloorToInt(vectorAction[0]);
+
+		Monitor.Log(
+			"Signal",
+			"" + signal,
+			null
+		 );
+
+		var newAngle = this.wheelAngle;
+		if (signal > 30) {
+			newAngle = (signal+1) - 30;
+        } else if (signal < 30)
+        {
+			newAngle = (signal+1) * -1;
+        }
+
+		if (newAngle < -maxAngle)
+		{
+			newAngle = -maxAngle;
+		}
+		else if (newAngle > maxAngle)
+		{
+			newAngle = maxAngle;
+		}
+
+		this.wheelAngle = newAngle;
+
+		Monitor.Log(
+            "Wheel Angle",
+            "" + newAngle,
+            null
+         );
+         */
+
 
 		// calculate distance
-		frontDistanceToCenter = (frontDriver.distanceToMarker - 5.0f) - frontPassenger.distanceToMarker;
-        backDistanceToCenter = (backDriver.distanceToMarker - 5.0f) - backPassenger.distanceToMarker;
-		print("distance: " + this.frontDistanceToCenter + ":" + this.backDistanceToCenter);
+		frontDistanceToCenter = ((frontDriver.distanceToMarker - this.laneWidth) - frontPassenger.distanceToMarker) / this.roadGuideOffset;
+		backDistanceToCenter = ((backDriver.distanceToMarker - this.laneWidth) - backPassenger.distanceToMarker) / this.roadGuideOffset;
 
-		Monitor.Log("Front Distance", frontDistanceToCenter/15f, null);
-		Monitor.Log("Back Distance", backDistanceToCenter/15f, null);
+		Monitor.Log(
+            "Front Distance",
+            frontDistanceToCenter,
+            null
+        );
+		Monitor.Log(
+            "Back Distance",
+            backDistanceToCenter,
+            null
+        );
 
-		float wheelDelta = vectorAction[0] * 5f;
-		Monitor.Log("Wheel Delta", "" + wheelDelta, null);
+		float newAngle = vectorAction[0] * this.maxAngle;
+		if (newAngle < -maxAngle)
+		{
+			newAngle = -maxAngle;
+		}
+		else if (newAngle > maxAngle)
+		{
+			newAngle = maxAngle;
+		}
+
+		Monitor.Log(
+            "Wheel Angle",
+            "" + newAngle,
+            null
+         );
 
         foreach (WheelCollider wheel in m_Wheels)
         {
             if (wheel.transform.localPosition.z > 0)
             {
-                float newAngle = wheel.steerAngle + wheelDelta;
-                if (newAngle < -maxAngle)
-                {
-					wheel.steerAngle = -maxAngle;
-				} else if (newAngle > maxAngle)
-                {
-					wheel.steerAngle = maxAngle;
-                } else
-                {
-					wheel.steerAngle = newAngle;
-                }
-                
+				wheel.steerAngle = newAngle; 
             }
 
 
-			wheel.motorTorque = constantTorque;
-
+            // Torque is constant, may change in the future
+            wheel.motorTorque = constantTorque;
 
 			//if (wheel.transform.localPosition.z < 0 && driveType != DriveType.FrontWheelDrive)
 			//{
@@ -156,7 +209,8 @@ public class VehicleAgent : Agent
 			//    wheel.motorTorque = torque;
 			//}
 
-			if (wheelShape)
+            // Update wheel shape (visually only)
+            if (wheelShape)
 			{
 				Quaternion q;
 				Vector3 p;
@@ -181,43 +235,67 @@ public class VehicleAgent : Agent
 
 		// REWARD
 
-		AddReward(0.025f);
+        // continuous reward based on position in the lane.
 
 		this.timer += Time.deltaTime;
-		if (this.timer > 100.0f)
-        {
-			print("- END: time");
-			
-            Done();
-			SetReward(-1.0f);
-			return;
-		}
 
-		if (Math.Abs(this.frontDistanceToCenter) < 0.1
-			&& Math.Abs(backDistanceToCenter) < 0.1)
+		var frontDistAbs = Math.Abs(this.frontDistanceToCenter);
+		var backDistAbs = Math.Abs(backDistanceToCenter);
+
+
+		if (frontDistAbs < 0.2 && backDistAbs < 0.2)
 		{
-			AddReward(0.1f);
+			var reward = (1 - frontDistAbs) * 0.25f;
+			reward += (1 - backDistAbs) * 0.25f;
+			SetReward(reward);
+
+			Monitor.Log(
+			    "Status",
+			    "In Lane",
+			    null
+		    );
+			Monitor.Log(
+				"Reward",
+				"" + Math.Round(reward, 2),
+				null
+			);
 		}
 		else {
-			AddReward(-0.1f);
-        }
+			var reward = frontDistAbs * 0.25f;
+			reward += backDistAbs * 0.25f;
+
+            // bigger penatly for being in the other lane
+            if (this.frontDistanceToCenter < 0f || this.backDistanceToCenter < 0f) {
+				reward *= 2;
+            }
+			reward *= -1;
+
+			SetReward(reward);
+
+			Monitor.Log(
+				"Status",
+				"Out of Lane",
+				null
+			);
+			Monitor.Log(
+				"Reward",
+				"" + Math.Round(reward, 2),
+				null
+			);
+		}
 
 
-   //     if (Math.Abs(wheelDelta) < 0.25)
-   //     {
-			//this.reward += 0.01f;
-   //     }
-        //else
-        //{
-        //    this.reward -= 0.02f;
-        //}
+        // Terminate Episode Cases
 
-        print("reward: " + reward);
-
-		if (Math.Abs(this.frontDistanceToCenter) > 10.0f)
+		if (frontDistAbs > 0.95 || backDistAbs > 0.95)
         {
-			print("- END: front distance > 7");
-			
+
+			Monitor.Log(
+				"Status",
+				"Terminate",
+				null
+			);
+
 			Done();
 			SetReward(-1.0f);
 			return;
@@ -225,8 +303,12 @@ public class VehicleAgent : Agent
 
 		if (this.transform.position.y > 5.0f)
         {
-			print("- END: y > 5");
-			
+			Monitor.Log(
+				"Status",
+				"Terminate",
+				null
+			);
+
 			Done();
 			SetReward(-1.0f);
 			return;
@@ -235,8 +317,12 @@ public class VehicleAgent : Agent
 		if (this.transform.position.y < 0.0f)
 
 		{
-			print("- END: y < 0");
-            
+			Monitor.Log(
+				"Status",
+				"Terminate",
+				null
+			);
+
 			Done();
 			SetReward(-1.0f);
 			return;
@@ -248,11 +334,15 @@ public class VehicleAgent : Agent
 			this.transform.localPosition
 		);
 
-		print("distance to end: " + distanceToEnd);
-
 		if (distanceToEnd < 10.0f)
         {
-			
+
+			Monitor.Log(
+				"Status",
+				"Success",
+				null
+			);
+
 			Done();
 			SetReward(1.0f);
 			return;
@@ -306,7 +396,6 @@ public class VehicleAgent : Agent
 	{
 
 		this.timer = 0.0f;
-        this.reward = 0f;
 		this.rBody.angularVelocity = Vector3.zero;
 		this.rBody.velocity = Vector3.zero;
 
