@@ -247,7 +247,7 @@ public class VehicleAgent : Agent
 		{
 			var reward = (1 - frontDistAbs) * 0.25f;
 			reward += (1 - backDistAbs) * 0.25f;
-			SetReward(reward);
+			AddReward(reward);
 
 			Monitor.Log(
 			    "Status",
@@ -270,7 +270,7 @@ public class VehicleAgent : Agent
             }
 			reward *= -1;
 
-			SetReward(reward);
+			AddReward(reward);
 
 			Monitor.Log(
 				"Status",
@@ -296,8 +296,8 @@ public class VehicleAgent : Agent
 				null
 			);
 
+			AddReward(-1.0f);
 			Done();
-			SetReward(-1.0f);
 			return;
 		}
 
@@ -309,8 +309,8 @@ public class VehicleAgent : Agent
 				null
 			);
 
+			AddReward(-1.0f);
 			Done();
-			SetReward(-1.0f);
 			return;
 		}
 
@@ -323,8 +323,8 @@ public class VehicleAgent : Agent
 				null
 			);
 
+			AddReward(-1.0f);
 			Done();
-			SetReward(-1.0f);
 			return;
 		}
 
@@ -343,8 +343,8 @@ public class VehicleAgent : Agent
 				null
 			);
 
+			AddReward(1.0f);
 			Done();
-			SetReward(1.0f);
 			return;
 		}
 
