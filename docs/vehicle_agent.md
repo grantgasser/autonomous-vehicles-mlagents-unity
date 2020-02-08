@@ -1,4 +1,4 @@
-## Vehicle Agent
+# Vehicle Agent
 
 ## Vehicle Mechanics
 The bases of the vehicle is from [Unity's Vehicle Tool]() Asset. The family car was used and altered to conform to `Agent` From ML-Agents. The car consists of a chassis model and 4 wheel using the Wheel Collider object. We added a custom script to the wheel object that uses a ray cast to determine the position on road. The following are the parameters used in our code (All values mentioned are constant for training, some values are not mentioned because they are training specific or defaulted from Vehicle Tools):
