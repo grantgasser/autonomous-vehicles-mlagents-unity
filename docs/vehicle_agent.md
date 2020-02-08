@@ -38,16 +38,15 @@ After a action is taken a reward is determined based on that action. For each de
 
 ### Lane positioning
 Front and back axel position relative to the lane guides are normalized from the raw distance from the 4 `CollidingWheel` Behavior objects. `0` represents the center of the lane, `-1` would be colliding the left lane guide and `1` would be colliding with the right lane guide. Rewards are given by the following logic:
-* given <img src="https://latex.codecogs.com/gif.latex?\left | frontLaneOffset \right | < 0.2 \land \left | backLaneOffset \right | < 0.2"/>
-  * <img src="https://latex.codecogs.com/gif.latex?r = ((1-\left | frontLaneOffset \right |)) * 0.25) + ((1-\left | backLaneOffset \right |)) * 0.25)"/>
-* given <img src="https://latex.codecogs.com/gif.latex?\left frontLaneOffset \geq 0.2 \land \left backLaneOffset \right \geq 0.2" />
-  * <img src="https://latex.codecogs.com/gif.latex?r = -(\left | frontLaneOffset \right | + \left | backLaneOffset \right |)" />
-* given <img src="https://latex.codecogs.com/gif.latex?\left frontDistance \leq -0.2 \land \left backDistance \right \leq -0.2" />
-  *  <img src="https://latex.codecogs.com/gif.latex?r = 2* -(\left | frontLaneOffset \right | + \left | backLaneOffset \right |)" />
+* given `|frontLaneOffset| < 0.2 AND |backLaneOffset| < 0.2`
+  * `r = (1 - |frontLaneOffset|) * 0.25) + ((1 - |backLaneOffset|) * 0.25)`
+* given `frontLaneOffset >= 0.2 AND backLaneOffset >= 0.2`
+  * `r = -(|frontLaneOffset| * 0.25) + (|backLaneOffset| * 0.25))`
+* given `frontLaneOffset >= -0.2 AND backLaneOffset >= -0.2`
+  * `r = 2 * -(|frontLaneOffset| * 0.25) + (|backLaneOffset| * 0.25))`
 
-### Episode Termination
-* <img src="https://latex.codecogs.com/gif.latex?r = -1" /> if
-  * <img src="https://latex.codecogs.com/gif.latex?\left | frontLaneOffset \right | > 95 \lor \left | backLaneOffset \right | > 95" />
-  * Vehicle Transform Y is above or below the road
-* <img src="https://latex.codecogs.com/gif.latex?r = 1" /> if
-  * Vehicle Distance to End Box is < 10.0
+### Temination
+* if the vehicle reaches the end box:
+  * `r = 1`
+* if the vehicle runs off the road, flips, or falls off the terrain:
+  * `r = -1`
