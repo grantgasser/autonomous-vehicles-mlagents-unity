@@ -1,6 +1,8 @@
 # Autonomous Driving in Unity using ML Agents 
 ## Advanced Deep Learning Project
 
+* [Development Documentation](docs/README.md)
+
 ### Authors
 * [Grant Gasser](https://www.linkedin.com/in/grantgasser/)
 * [Blaine Rothrock](https://www.linkedin.com/in/brothrock/)
