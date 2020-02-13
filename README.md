@@ -7,6 +7,11 @@
 * [Grant Gasser](https://www.linkedin.com/in/grantgasser/)
 * [Blaine Rothrock](https://www.linkedin.com/in/brothrock/)
 
+## V1 Results
+![vs01_gif](docs/images/vs01/vs01.gif) 
+![vs01_reward](docs/images/vs01/reward_log.png) 
+![vs01_loss](docs/images/vs01/loss_log.png) 
+
 ## DonkeyCar Report & Thoughts
 * [DonkeyCar Docs](https://docs.donkeycar.com/)
 * See `exploration/` for report on DonkeyCar
