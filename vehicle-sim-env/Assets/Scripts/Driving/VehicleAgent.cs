@@ -57,6 +57,8 @@ public class VehicleAgent : Agent
 
 	private Rigidbody rBody;
 
+	public float currentAngle;
+
 	// Find all the WheelColliders down in the hierarchy.
 	void Start()
 	{
@@ -121,8 +123,7 @@ public class VehicleAgent : Agent
     {
 		m_Wheels[0].ConfigureVehicleSubsteps(criticalSpeed, stepsBelow, stepsAbove);
 
-		/*
-         *int signal = Mathf.FloorToInt(vectorAction[0]);
+        int signal = Mathf.FloorToInt(vectorAction[0]);
 
 		Monitor.Log(
 			"Signal",
@@ -131,21 +132,9 @@ public class VehicleAgent : Agent
 		 );
 
 		var newAngle = this.wheelAngle;
-		if (signal > 30) {
-			newAngle = (signal+1) - 30;
-        } else if (signal < 30)
-        {
-			newAngle = (signal+1) * -1;
-        }
-
-		if (newAngle < -maxAngle)
-		{
-			newAngle = -maxAngle;
-		}
-		else if (newAngle > maxAngle)
-		{
-			newAngle = maxAngle;
-		}
+		if (signal == 0) { newAngle += 0; }
+		if (signal == 1 && newAngle < 30) { newAngle += 1; }
+		if (signal == 2 && newAngle > -30) { newAngle -= 1; }
 
 		this.wheelAngle = newAngle;
 
@@ -154,11 +143,10 @@ public class VehicleAgent : Agent
             "" + newAngle,
             null
          );
-         */
 
 
-		// calculate distance
-		frontDistanceToCenter = ((frontDriver.distanceToMarker - this.laneWidth) - frontPassenger.distanceToMarker) / this.roadGuideOffset;
+        // calculate distance
+        frontDistanceToCenter = ((frontDriver.distanceToMarker - this.laneWidth) - frontPassenger.distanceToMarker) / this.roadGuideOffset;
 		backDistanceToCenter = ((backDriver.distanceToMarker - this.laneWidth) - backPassenger.distanceToMarker) / this.roadGuideOffset;
 
 		Monitor.Log(
@@ -172,17 +160,19 @@ public class VehicleAgent : Agent
             null
         );
 
-		float newAngle = vectorAction[0] * this.maxAngle;
-		if (newAngle < -maxAngle)
-		{
-			newAngle = -maxAngle;
-		}
-		else if (newAngle > maxAngle)
-		{
-			newAngle = maxAngle;
-		}
+		//float newAngle = vectorAction[0] * this.maxAngle;
 
-		Monitor.Log(
+  //      if (newAngle < -maxAngle)
+  //      {
+  //          newAngle = -maxAngle;
+  //      }
+  //      else if (newAngle > maxAngle)
+  //      {
+  //          newAngle = maxAngle;
+  //      }
+        currentAngle = newAngle;
+
+        Monitor.Log(
             "Wheel Angle",
             "" + newAngle,
             null
@@ -192,7 +182,7 @@ public class VehicleAgent : Agent
         {
             if (wheel.transform.localPosition.z > 0)
             {
-				wheel.steerAngle = newAngle; 
+				wheel.steerAngle = currentAngle; 
             }
 
 
@@ -371,25 +361,25 @@ public class VehicleAgent : Agent
 
 		m_Wheels[0].ConfigureVehicleSubsteps(criticalSpeed, stepsBelow, stepsAbove);
 
-		float angle = maxAngle * Input.GetAxis("Horizontal");
-
-        print("angle " + angle);
+		int signal = 0;
+		if (Input.GetAxis("Horizontal") > 0) { signal = 1; }
+		if (Input.GetAxis("Horizontal") < 0) { signal = 2; }
 
         //float torque = maxTorque * Input.GetAxis("Vertical");
 
         //float handBrake = Input.GetKey(KeyCode.X) ? brakeTorque : 0;
 
-        foreach (WheelCollider wheel in m_Wheels)
-		{
-			// A simple car where front wheels steer while rear ones drive.
-			if (wheel.transform.localPosition.z > 0)
-				wheel.steerAngle = angle;
-		}
+        //foreach (WheelCollider wheel in m_Wheels)
+		//{
+		//	// A simple car where front wheels steer while rear ones drive.
+		//	if (wheel.transform.localPosition.z > 0)
+		//		wheel.steerAngle += signal;
+		//}
 
-		float[] signal = new float[1];
-		signal[0] = angle - wheelAngle;
+		float[] action = new float[1];
+		action[0] = signal;
 
-		return signal;
+		return action;
 	}
 
 	public override void AgentReset()

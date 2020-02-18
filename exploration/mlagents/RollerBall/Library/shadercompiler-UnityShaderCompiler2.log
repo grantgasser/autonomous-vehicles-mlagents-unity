@@ -1,2 +1,49 @@
-Base path: '/Applications/Unity/Hub/Editor/2019.2.19f1/Unity.app/Contents', plugins path '/Applications/Unity/Hub/Editor/2019.2.19f1/Unity.app/Contents/PlaybackEngines'
+Base path: '/Applications/Unity/Hub/Editor/2019.3.0f6/Unity.app/Contents', plugins path '/Applications/Unity/Hub/Editor/2019.3.0f6/Unity.app/Contents/PlaybackEngines'
 Cmd: initializeCompiler
+Cmd: compileComputeKernel
+  api=14 insize=7960 outsize=2550 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=3193 outsize=3669 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=8733 outsize=16335 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=2957 outsize=4285 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=14464 outsize=29612 ok=1
+Cmd: compileComputeKernel
+  error: 1 plat 14 at Tensor.cginc(141): use of potentially uninitialized variable (ReadonlyTensor::SafeGet)
+  api=14 insize=44336 outsize=3740 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=44336 outsize=3560 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=44336 outsize=3612 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=44336 outsize=3193 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=4914 outsize=7438 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=3380 outsize=3559 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=29386 outsize=2151 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=29386 outsize=1345 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=29386 outsize=2135 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=29386 outsize=2918 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=29386 outsize=2659 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=2449 outsize=2108 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=2390 outsize=2088 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=2300 outsize=1918 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=2830 outsize=3143 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=2967 outsize=3201 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=2753 outsize=3079 ok=1
+
+Quitting shader compiler process
