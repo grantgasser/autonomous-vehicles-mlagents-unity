@@ -39,6 +39,9 @@ public class VehicleAgent : Agent
 	[Tooltip("The vehicle's drive type: rear-wheels drive, front-wheels drive or all-wheels drive.")]
 	public DriveType driveType;
 
+	[Tooltip("Degree amount the wheel angle can change each action step")]
+	public float wheelAngleDelta = 0.25f;
+
     // PRIVATE VARIABLES
 
     // wheels
@@ -133,8 +136,8 @@ public class VehicleAgent : Agent
 
 		var newAngle = this.wheelAngle;
 		if (signal == 0) { newAngle += 0; }
-		if (signal == 1 && newAngle < 30) { newAngle += 1; }
-		if (signal == 2 && newAngle > -30) { newAngle -= 1; }
+		if (signal == 1 && newAngle < 30) { newAngle += wheelAngleDelta; }
+		if (signal == 2 && newAngle > -30) { newAngle -= wheelAngleDelta; }
 
 		this.wheelAngle = newAngle;
 
