@@ -144,7 +144,6 @@ public class VehicleAgent : Agent
             null
          );
 
-
         // calculate distance
         frontDistanceToCenter = ((frontDriver.distanceToMarker - this.laneWidth) - frontPassenger.distanceToMarker) / this.roadGuideOffset;
 		backDistanceToCenter = ((backDriver.distanceToMarker - this.laneWidth) - backPassenger.distanceToMarker) / this.roadGuideOffset;
@@ -159,17 +158,6 @@ public class VehicleAgent : Agent
             backDistanceToCenter,
             null
         );
-
-		//float newAngle = vectorAction[0] * this.maxAngle;
-
-  //      if (newAngle < -maxAngle)
-  //      {
-  //          newAngle = -maxAngle;
-  //      }
-  //      else if (newAngle > maxAngle)
-  //      {
-  //          newAngle = maxAngle;
-  //      }
         currentAngle = newAngle;
 
         Monitor.Log(
@@ -226,12 +214,12 @@ public class VehicleAgent : Agent
 		// REWARD
 
         // continuous reward based on position in the lane.
-
-		this.timer += Time.deltaTime;
-
 		var frontDistAbs = Math.Abs(this.frontDistanceToCenter);
 		var backDistAbs = Math.Abs(backDistanceToCenter);
 
+        // reward the vehicle for not changing it's wheel angle
+        // An attempt to smooth the driving
+        if (signal == 0) { AddReward(0.1f); } 
 
 		if (frontDistAbs < 0.2 && backDistAbs < 0.2)
 		{
@@ -337,17 +325,6 @@ public class VehicleAgent : Agent
 			Done();
 			return;
 		}
-
-		//Monitor.Log("Current Reward", "" + this.reward, null);
-
-
-
-
-		//     if (Math.Abs(this.transform.eulerAngles.z) > 5)
-		//     {
-		//print("END: rotation z > 5");
-		//Done();
-		//     }
 	}
 
 
