@@ -39,6 +39,9 @@ public class VehicleAgent : Agent
 	[Tooltip("The vehicle's drive type: rear-wheels drive, front-wheels drive or all-wheels drive.")]
 	public DriveType driveType;
 
+	[Tooltip("Degree amount the wheel angle can change each action step")]
+	public float wheelAngleDelta = 0.25f;
+
     // PRIVATE VARIABLES
 
     // wheels
@@ -56,6 +59,8 @@ public class VehicleAgent : Agent
 	private float timer = 0.0f;
 
 	private Rigidbody rBody;
+
+	public float currentAngle;
 
 	// Find all the WheelColliders down in the hierarchy.
 	void Start()
@@ -121,8 +126,7 @@ public class VehicleAgent : Agent
     {
 		m_Wheels[0].ConfigureVehicleSubsteps(criticalSpeed, stepsBelow, stepsAbove);
 
-		/*
-         *int signal = Mathf.FloorToInt(vectorAction[0]);
+        int signal = Mathf.FloorToInt(vectorAction[0]);
 
 		Monitor.Log(
 			"Signal",
@@ -131,21 +135,9 @@ public class VehicleAgent : Agent
 		 );
 
 		var newAngle = this.wheelAngle;
-		if (signal > 30) {
-			newAngle = (signal+1) - 30;
-        } else if (signal < 30)
-        {
-			newAngle = (signal+1) * -1;
-        }
-
-		if (newAngle < -maxAngle)
-		{
-			newAngle = -maxAngle;
-		}
-		else if (newAngle > maxAngle)
-		{
-			newAngle = maxAngle;
-		}
+		if (signal == 0) { newAngle += 0; }
+		if (signal == 1 && newAngle < 30) { newAngle += wheelAngleDelta; }
+		if (signal == 2 && newAngle > -30) { newAngle -= wheelAngleDelta; }
 
 		this.wheelAngle = newAngle;
 
@@ -154,11 +146,9 @@ public class VehicleAgent : Agent
             "" + newAngle,
             null
          );
-         */
 
-
-		// calculate distance
-		frontDistanceToCenter = ((frontDriver.distanceToMarker - this.laneWidth) - frontPassenger.distanceToMarker) / this.roadGuideOffset;
+        // calculate distance
+        frontDistanceToCenter = ((frontDriver.distanceToMarker - this.laneWidth) - frontPassenger.distanceToMarker) / this.roadGuideOffset;
 		backDistanceToCenter = ((backDriver.distanceToMarker - this.laneWidth) - backPassenger.distanceToMarker) / this.roadGuideOffset;
 
 		Monitor.Log(
@@ -171,18 +161,9 @@ public class VehicleAgent : Agent
             backDistanceToCenter,
             null
         );
+        currentAngle = newAngle;
 
-		float newAngle = vectorAction[0] * this.maxAngle;
-		if (newAngle < -maxAngle)
-		{
-			newAngle = -maxAngle;
-		}
-		else if (newAngle > maxAngle)
-		{
-			newAngle = maxAngle;
-		}
-
-		Monitor.Log(
+        Monitor.Log(
             "Wheel Angle",
             "" + newAngle,
             null
@@ -192,7 +173,7 @@ public class VehicleAgent : Agent
         {
             if (wheel.transform.localPosition.z > 0)
             {
-				wheel.steerAngle = newAngle; 
+				wheel.steerAngle = currentAngle; 
             }
 
 
@@ -236,12 +217,12 @@ public class VehicleAgent : Agent
 		// REWARD
 
         // continuous reward based on position in the lane.
-
-		this.timer += Time.deltaTime;
-
 		var frontDistAbs = Math.Abs(this.frontDistanceToCenter);
 		var backDistAbs = Math.Abs(backDistanceToCenter);
 
+        // reward the vehicle for not changing it's wheel angle
+        // An attempt to smooth the driving
+        if (signal == 0) { AddReward(0.1f); } 
 
 		if (frontDistAbs < 0.2 && backDistAbs < 0.2)
 		{
@@ -347,17 +328,6 @@ public class VehicleAgent : Agent
 			Done();
 			return;
 		}
-
-		//Monitor.Log("Current Reward", "" + this.reward, null);
-
-
-
-
-		//     if (Math.Abs(this.transform.eulerAngles.z) > 5)
-		//     {
-		//print("END: rotation z > 5");
-		//Done();
-		//     }
 	}
 
 
@@ -371,25 +341,25 @@ public class VehicleAgent : Agent
 
 		m_Wheels[0].ConfigureVehicleSubsteps(criticalSpeed, stepsBelow, stepsAbove);
 
-		float angle = maxAngle * Input.GetAxis("Horizontal");
-
-        print("angle " + angle);
+		int signal = 0;
+		if (Input.GetAxis("Horizontal") > 0) { signal = 1; }
+		if (Input.GetAxis("Horizontal") < 0) { signal = 2; }
 
         //float torque = maxTorque * Input.GetAxis("Vertical");
 
         //float handBrake = Input.GetKey(KeyCode.X) ? brakeTorque : 0;
 
-        foreach (WheelCollider wheel in m_Wheels)
-		{
-			// A simple car where front wheels steer while rear ones drive.
-			if (wheel.transform.localPosition.z > 0)
-				wheel.steerAngle = angle;
-		}
+        //foreach (WheelCollider wheel in m_Wheels)
+		//{
+		//	// A simple car where front wheels steer while rear ones drive.
+		//	if (wheel.transform.localPosition.z > 0)
+		//		wheel.steerAngle += signal;
+		//}
 
-		float[] signal = new float[1];
-		signal[0] = angle - wheelAngle;
+		float[] action = new float[1];
+		action[0] = signal;
 
-		return signal;
+		return action;
 	}
 
 	public override void AgentReset()

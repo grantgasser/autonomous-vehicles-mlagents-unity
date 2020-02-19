@@ -1,53 +1,54 @@
-Base path: '/Applications/Unity/Hub/Editor/2019.2.18f1/Unity.app/Contents', plugins path '/Applications/Unity/Hub/Editor/2019.2.18f1/Unity.app/Contents/PlaybackEngines'
+Base path: '/Applications/Unity/Hub/Editor/2019.3.0f6/Unity.app/Contents', plugins path '/Applications/Unity/Hub/Editor/2019.3.0f6/Unity.app/Contents/PlaybackEngines'
 Cmd: initializeCompiler
 Cmd: compileComputeKernel
   api=14 insize=7960 outsize=2649 ok=1
 Cmd: compileComputeKernel
-  error: 1 plat 14 at Tensor.cginc(155): use of potentially uninitialized variable (ReadonlyTensor::SafeGet)
-  api=14 insize=64076 outsize=13769 ok=1
-Cmd: translateComputeKernel
-  api=14 insize=8733 outsize=16335 ok=1
+  api=14 insize=64076 outsize=8877 ok=1
 Cmd: compileComputeKernel
-  api=14 insize=9919 outsize=2953 ok=1
+  api=14 insize=9919 outsize=2923 ok=1
 Cmd: translateComputeKernel
-  api=14 insize=2952 outsize=4279 ok=1
+  api=14 insize=2923 outsize=4236 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=10961 outsize=19478 ok=1
 Cmd: compileComputeKernel
   api=14 insize=44336 outsize=4747 ok=1
 Cmd: compileComputeKernel
   api=14 insize=44336 outsize=3583 ok=1
 Cmd: compileComputeKernel
-  api=14 insize=44336 outsize=2993 ok=1
+  api=14 insize=44336 outsize=3599 ok=1
 Cmd: translateComputeKernel
-  api=14 insize=4091 outsize=5546 ok=1
+  api=14 insize=3773 outsize=4242 ok=1
 Cmd: translateComputeKernel
-  api=14 insize=4134 outsize=5129 ok=1
-Cmd: compileComputeKernel
-  api=14 insize=1810 outsize=4325 ok=1
-Cmd: compileComputeKernel
-  api=14 insize=29386 outsize=2151 ok=1
-Cmd: compileComputeKernel
-  api=14 insize=29386 outsize=2135 ok=1
-Cmd: compileComputeKernel
-  api=14 insize=29386 outsize=1205 ok=1
-Cmd: compileComputeKernel
-  api=14 insize=29386 outsize=2692 ok=1
-Cmd: compileComputeKernel
-  api=14 insize=29386 outsize=2813 ok=1
-Cmd: compileComputeKernel
-  api=14 insize=29386 outsize=2717 ok=1
+  api=14 insize=3669 outsize=3998 ok=1
 Cmd: translateComputeKernel
-  api=14 insize=2308 outsize=1953 ok=1
+  api=14 insize=3349 outsize=3449 ok=1
 Cmd: translateComputeKernel
-  api=14 insize=2390 outsize=2088 ok=1
+  api=14 insize=3955 outsize=4838 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=3379 outsize=3574 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=2936 outsize=3781 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=29386 outsize=2286 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=29386 outsize=2149 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=29386 outsize=2172 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=29386 outsize=2543 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=29386 outsize=2836 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=29386 outsize=2989 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=1476 outsize=1516 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=2404 outsize=2074 ok=1
 Cmd: translateComputeKernel
   api=14 insize=2406 outsize=2117 ok=1
 Cmd: translateComputeKernel
-  api=14 insize=3426 outsize=4220 ok=1
+  api=14 insize=2997 outsize=3368 ok=1
 Cmd: translateComputeKernel
-  api=14 insize=2944 outsize=3323 ok=1
-Cmd: translateComputeKernel
-  api=14 insize=2808 outsize=3152 ok=1
-Cmd: compileSnippet
-  api=14 type=0 insize=11846 outsize=2664 kw=SHADOWS_SPLIT_SPHERES pd=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_COLORSPACE_GAMMA UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR ok=1
+  api=14 insize=2798 outsize=3151 ok=1
 
 Quitting shader compiler process

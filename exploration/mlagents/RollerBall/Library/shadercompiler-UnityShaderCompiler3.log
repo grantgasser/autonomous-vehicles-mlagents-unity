@@ -1,54 +1,50 @@
-Base path: '/Applications/Unity/Hub/Editor/2019.2.18f1/Unity.app/Contents', plugins path '/Applications/Unity/Hub/Editor/2019.2.18f1/Unity.app/Contents/PlaybackEngines'
+Base path: '/Applications/Unity/Hub/Editor/2019.3.0f6/Unity.app/Contents', plugins path '/Applications/Unity/Hub/Editor/2019.3.0f6/Unity.app/Contents/PlaybackEngines'
 Cmd: initializeCompiler
 Cmd: compileComputeKernel
-  api=14 insize=7960 outsize=2550 ok=1
+  api=14 insize=7960 outsize=4052 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=3225 outsize=3625 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=13802 outsize=26478 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=3102 outsize=4530 ok=1
 Cmd: compileComputeKernel
-  api=14 insize=64076 outsize=6622 ok=1
+  api=14 insize=7335 outsize=2718 ok=1
 Cmd: compileComputeKernel
-  api=14 insize=9919 outsize=2952 ok=1
+  error: 1 plat 14 at BarracudaReferenceImpl.compute(1256): array reference cannot be used as an l-value; not natively addressable, forcing loop to unroll
+  error: 1 plat 14 at BarracudaReferenceImpl.compute(1266): array reference cannot be used as an l-value; not natively addressable, forcing loop to unroll
+  api=14 insize=44336 outsize=10371 ok=1
 Cmd: translateComputeKernel
-  api=14 insize=2960 outsize=4288 ok=1
+  api=14 insize=3589 outsize=3826 ok=1
 Cmd: translateComputeKernel
-  api=14 insize=8584 outsize=16876 ok=1
+  api=14 insize=3348 outsize=3423 ok=1
 Cmd: translateComputeKernel
-  api=14 insize=3119 outsize=3829 ok=1
+  api=14 insize=3421 outsize=3527 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=3366 outsize=3472 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=3984 outsize=4877 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=3459 outsize=3601 ok=1
 Cmd: compileComputeKernel
-  api=14 insize=44336 outsize=4835 ok=1
+  api=14 insize=29386 outsize=2058 ok=1
 Cmd: compileComputeKernel
-  api=14 insize=44336 outsize=3587 ok=1
+  api=14 insize=29386 outsize=2230 ok=1
 Cmd: compileComputeKernel
-  api=14 insize=44336 outsize=2940 ok=1
-Cmd: translateComputeKernel
-  api=14 insize=5176 outsize=7273 ok=1
-Cmd: translateComputeKernel
-  api=14 insize=3364 outsize=3459 ok=1
-Cmd: translateComputeKernel
-  api=14 insize=3872 outsize=4277 ok=1
-Cmd: translateComputeKernel
-  api=14 insize=3002 outsize=3873 ok=1
+  api=14 insize=29386 outsize=2145 ok=1
 Cmd: compileComputeKernel
-  api=14 insize=29386 outsize=2313 ok=1
+  api=14 insize=29386 outsize=3332 ok=1
 Cmd: compileComputeKernel
-  api=14 insize=29386 outsize=1205 ok=1
-Cmd: compileComputeKernel
-  api=14 insize=29386 outsize=2640 ok=1
-Cmd: compileComputeKernel
-  api=14 insize=29386 outsize=2677 ok=1
-Cmd: compileComputeKernel
-  api=14 insize=29386 outsize=2655 ok=1
+  api=14 insize=29386 outsize=2619 ok=1
 Cmd: translateComputeKernel
-  api=14 insize=1419 outsize=1449 ok=1
+  api=14 insize=2253 outsize=1849 ok=1
 Cmd: translateComputeKernel
-  api=14 insize=2344 outsize=1950 ok=1
+  api=14 insize=1572 outsize=1659 ok=1
 Cmd: translateComputeKernel
-  api=14 insize=2245 outsize=1845 ok=1
+  api=14 insize=2332 outsize=1997 ok=1
 Cmd: translateComputeKernel
-  api=14 insize=2997 outsize=3368 ok=1
+  api=14 insize=2790 outsize=3117 ok=1
 Cmd: translateComputeKernel
-  api=14 insize=2838 outsize=3177 ok=1
-Cmd: translateComputeKernel
-  api=14 insize=2860 outsize=3025 ok=1
-Cmd: compileSnippet
-  api=14 type=1 insize=24152 outsize=13998 kw=UNITY_PASS_FORWARDBASE DIRECTIONAL SHADOWS_SCREEN LIGHTPROBE_SH pd=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_COLORSPACE_GAMMA UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR ok=1
+  api=14 insize=2843 outsize=3002 ok=1
 
 Quitting shader compiler process
