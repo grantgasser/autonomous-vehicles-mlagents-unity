@@ -6,7 +6,7 @@ using System.IO;
 public class recorder : MonoBehaviour
 {
 
-    public VehicleAgent vehicle;
+    public VehicleAgentCont vehicle;
     public string runId;
     public float imgFrequency = 0.5f;
     public bool record = false;
