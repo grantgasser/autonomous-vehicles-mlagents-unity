@@ -42,6 +42,9 @@ public class VehicleAgentDiscrete : Agent
 	[Tooltip("Degree amount the wheel angle can change each action step")]
 	public float wheelAngleDelta = 0.25f;
 
+	[Tooltip("RPM torque cutoff (max RPM)")]
+	public float maxRPM = 100f;
+
     // PRIVATE VARIABLES
 
     // wheels
@@ -167,9 +170,15 @@ public class VehicleAgentDiscrete : Agent
             "Wheel Angle",
             "" + this.wheelAngle,
             null
-         );
+        );
 
-        foreach (WheelCollider wheel in m_Wheels)
+		Monitor.Log(
+			"RPM",
+			"" + m_Wheels[0].rpm,
+			null
+		);
+
+		foreach (WheelCollider wheel in m_Wheels)
         {
             if (wheel.transform.localPosition.z > 0)
             {
@@ -178,17 +187,27 @@ public class VehicleAgentDiscrete : Agent
 
 
             // Torque is constant, may change in the future
-            wheel.motorTorque = constantTorque;
+            if (wheel.transform.localPosition.z < 0 && driveType != DriveType.FrontWheelDrive)
+            {
+				if (m_Wheels[0].rpm < maxRPM)
+				{
+					wheel.motorTorque = constantTorque;
+				}
+				else {
+					wheel.motorTorque = 0f;
+				}
+            }
 
-			//if (wheel.transform.localPosition.z < 0 && driveType != DriveType.FrontWheelDrive)
-			//{
-			//    wheel.motorTorque = torque;
-			//}
-
-			//if (wheel.transform.localPosition.z >= 0 && driveType != DriveType.RearWheelDrive)
-			//{
-			//    wheel.motorTorque = torque;
-			//}
+            if (wheel.transform.localPosition.z >= 0 && driveType != DriveType.RearWheelDrive)
+            {
+				if (m_Wheels[0].rpm < maxRPM)
+				{
+					wheel.motorTorque = constantTorque;
+				}
+				else {
+					wheel.motorTorque = 0f;
+				}
+			}
 
             // Update wheel shape (visually only)
             if (wheelShape)
