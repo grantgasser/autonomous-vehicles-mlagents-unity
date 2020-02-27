@@ -8,6 +8,7 @@ from tensorflow.keras import datasets, layers, models
 from sklearn.model_selection import train_test_split
 
 DATA_PATH = 'recording_data/'
+OUTPUT_DATA_PATH = 'output/'
 IMG_EXTENSION = '.png'
 SEED = 42
 TEST_SIZE = 0.2
@@ -30,29 +31,39 @@ def read_image_data():
 
     return np.array(images)
 
-def viz_image(np_image):
+def viz_image(np_image, label):
     """
     Visualizes provided image
 
     Args:
         np_image (np.array): image of size (256, 256, 3)
+        label (float): label for given image
     """
 
     # reverse to RGB to visualize
     img = cv2.cvtColor(np_image, cv2.COLOR_BGR2RGB)
     plt.imshow(img)
+    plt.title('Example Input Image w/ label=' + str(label))
+    plt.savefig(OUTPUT_DATA_PATH + 'example_image')
     plt.show()
 
 
 def main():
-    # read and viz
+    # read data
     images = read_image_data()
-    viz_image(images[np.random.randint(0, len(images))])
 
-    # train/test split
+    # for output data
+    if not os.path.exists(OUTPUT_DATA_PATH):
+        os.makedirs(OUTPUT_DATA_PATH)
+
     # random labels for now
     labels = np.random.rand(len(images), 1)
 
+    # visualize data
+    idx = np.random.randint(0, len(images))
+    viz_image(images[idx], labels[idx])
+
+    # train/test split
     x_train, x_test, y_train, y_test = train_test_split(images, labels, test_size=TEST_SIZE, random_state=SEED)
 
     # normalize between 0-1
@@ -74,29 +85,27 @@ def main():
     print(model.summary())
     # ---------------
 
-    # compile train model
+    # compile train model (NOTE: loss is MSE)
     # ---------------
-    # model.compile(optimizer='adam',
-    #               loss=tf.keras.losses.MeanSquaredError,
-    #               metrics=['MeanSquaredError'])
-    #
-    # history = model.fit(x_train, y_train, epochs=5, validation_data=(x_test, y_test))
+    model.compile(optimizer='adam',
+                  loss=tf.keras.losses.MSE)
+
+    history = model.fit(x_train, y_train, epochs=5, validation_data=(x_test, y_test))
     # ---------------
 
     # evaluate model
     # ---------------
-    # plt.plot(history.history['accuracy'], label='accuracy')
-    # plt.plot(history.history['val_accuracy'], label='val_accuracy')
-    # plt.xlabel('Epoch')
-    # plt.ylabel('Accuracy')
-    # plt.ylim([0.5, 1])
-    # plt.legend(loc='lower right')
-    #
-    # test_loss, test_acc = model.evaluate(x_test, y_test, verbose=2)
-    # print('\nTest Accuracy:', test_acc)
+    plt.plot(history.history['loss'], label='MSE/Loss')
+    plt.plot(history.history['val_loss'], label='Val MSE/Loss')
+    plt.xlabel('Epoch')
+    plt.ylabel('MSE/Loss')
+    plt.legend(loc='upper right')
+    plt.savefig(OUTPUT_DATA_PATH + 'loss_plot')
+    plt.show()
+
+    test_loss = model.evaluate(x_test, y_test, verbose=2)
+    print('\nTest Loss:', test_loss)
 
     # ---------------
-
-
 
 main()
