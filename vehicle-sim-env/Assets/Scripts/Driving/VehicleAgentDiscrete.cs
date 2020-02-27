@@ -172,12 +172,6 @@ public class VehicleAgentDiscrete : Agent
             null
         );
 
-		Monitor.Log(
-			"RPM",
-			"" + m_Wheels[0].rpm,
-			null
-		);
-
 		foreach (WheelCollider wheel in m_Wheels)
         {
             if (wheel.transform.localPosition.z > 0)
