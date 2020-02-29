@@ -45,19 +45,21 @@ public class VehicleAgentDiscrete : Agent
 	[Tooltip("RPM torque cutoff (max RPM)")]
 	public float maxRPM = 100f;
 
-    // PRIVATE VARIABLES
+	public float wheelAngle = 0.0f;
+	public float rpm = 0.0f;
 
-    // wheels
-    private WheelCollider[] m_Wheels;
+	// PRIVATE VARIABLES
+
+	// wheels
+	private WheelCollider[] m_Wheels;
     private CollidingWheel frontDriver;
 	private CollidingWheel frontPassenger;
 	private CollidingWheel backDriver;
 	private CollidingWheel backPassenger;
 
     // positioning
-    private float wheelAngle = 0.0f;
-	private float frontDistanceToCenter = 0.0f;
-	private float backDistanceToCenter = 0.0f;
+	public float frontDistanceToCenter = 0.0f;
+	public float backDistanceToCenter = 0.0f;
 
 	private float timer = 0.0f;
 
@@ -166,11 +168,7 @@ public class VehicleAgentDiscrete : Agent
             null
         );
 
-        Monitor.Log(
-            "Wheel Angle",
-            "" + this.wheelAngle,
-            null
-        );
+		rpm = m_Wheels[0].rpm;
 
 		foreach (WheelCollider wheel in m_Wheels)
         {

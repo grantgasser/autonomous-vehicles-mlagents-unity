@@ -6,10 +6,13 @@ using System.IO;
 public class recorder : MonoBehaviour
 {
 
-    public VehicleAgentCont vehicle;
+    public VehicleAgentDiscrete vehicle;
+    public Camera cam;
     public string runId;
     public float imgFrequency = 0.5f;
     public bool record = false;
+
+    public string dataPath = "data/";
 
     private int FileCounter = 0;
     private float time = 0.0f;
@@ -44,13 +47,13 @@ public class recorder : MonoBehaviour
 
     void SetUpTargetFile()
     {
-        string path = Application.dataPath + "/recording_data/" + runId + "_" + "targets" + ".csv";
-        File.AppendAllText(path, "runId,iteration,angle\n"); 
+        string path = dataPath + "/recording_data/" + runId + "_" + "targets" + ".csv";
+        File.AppendAllText(path, "run_id,file_counter,wheel_angle,front_distance_to_center,back_distance_to_center,rpm\n"); 
     }
 
     void CamCapture()
     {
-        Camera Cam = GetComponent<Camera>();
+        Camera Cam = cam;
 
         RenderTexture currentRT = RenderTexture.active;
         RenderTexture.active = Cam.targetTexture;
@@ -65,17 +68,17 @@ public class recorder : MonoBehaviour
         var Bytes = Image.EncodeToPNG();
         Destroy(Image);
 
-        string path = Application.dataPath + "/recording_data/" + runId + "_" + FileCounter + ".png";
+        string path = dataPath + "/recording_data/" + runId + "_" + FileCounter + ".png";
         File.WriteAllBytes(path, Bytes);
         FileCounter++;
     }
 
     void WriteTargetData()
     {
-        var target = vehicle.currentAngle;
+        var target = vehicle.wheelAngle;
 
-        string path = Application.dataPath + "/recording_data/" + runId + "_" + "targets" + ".csv";
-        string text = runId + "," + FileCounter.ToString() + "," + target.ToString() + "\n";
+        string path = dataPath + "/recording_data/" + runId + "_" + "targets" + ".csv";
+        string text = runId + "," + FileCounter.ToString() + "," + target.ToString() + "," + vehicle.frontDistanceToCenter.ToString() + "," + vehicle.backDistanceToCenter.ToString() + "," + vehicle.rpm + "\n";
         File.AppendAllText(path, text);
     }
 }
