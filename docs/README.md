@@ -8,4 +8,5 @@
 * [Unity](unity.md)
 * [Simulation Environment](simulation_environment.md)
 * [Vehicle Agent](vehicle_agent.md)
-* [Reinforcement Learning Training](rl_training.md)
+* [Part 1 - Reinforcement Learning Training](rl_training.md)
+* [Part 2 - Convolutional Net](convolutional_net.md)
