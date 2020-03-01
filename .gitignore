@@ -35,8 +35,10 @@ sysinfo.txt
 *.apk
 *.unitypackage
 
-# data
-cnn/recording_data
-cnn/output
+# cnn
+cnn/recording_data/
+cnn/recording_data_curve/
+cnn/output/
+cnn/logs/
 
 .idea
