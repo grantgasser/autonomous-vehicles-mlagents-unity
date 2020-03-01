@@ -34,7 +34,7 @@ public class CollidingWheel : MonoBehaviour
             rayDirection = transform.TransformDirection(Vector3.right);
         }
 
-        Debug.DrawRay(transform.position, rayDirection * 20, Color.green, Time.deltaTime, false);
+        Debug.DrawRay(transform.position, rayDirection * 32.0f, Color.green, Time.deltaTime, false);
 
         if (Physics.Raycast(transform.position, rayDirection, out hit, 32.0f))
         {

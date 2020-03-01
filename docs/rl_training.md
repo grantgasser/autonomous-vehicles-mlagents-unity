@@ -41,3 +41,65 @@ Redesign the action to be a classification with the following classes:
 * constant wheel angle
 
 This will only allow the wheels to move *k* degree(s) in one direction in a step and have a even representation for no change in direction. Hyperparameters such as decision interval and the vector observation space will need to be adjusted. May consider a small reward for keeping the direction constant.
+
+
+## RL Training Run 02 (Discrete Reward)
+* name: `vs02`
+* training command: `mlagents-learn config/vs02_config.yaml --run-id=sv01 --train`
+* configuration file: `config/vs02_config.yaml`
+* behavioral hyperparameter: 
+  * **Steps**: `25 million`
+  * **Constant Torque**: `50`
+  * **Decision Interval**: `1`
+  * **Max Step**: `20000`
+  * **Reset on Done**: `true`
+  * **Vector Observation Space**: `5`
+  * **Vector Action Space**: `1`
+  * **Number of Concurrent Agents**: `12`
+* Machine Details:
+  * Ran From Unity
+  * GTX 1080
+  * Locally (personal desktop Ubuntu 18.4)
+
+### Updates
+Main change was switching to a discrete reward system that greatly limited the amount of wheel angle change from step-to-step. see [vehicle agent](vehicle_agent.md)
+doc for more details. 
+
+![vs02](https://blainerothrock-public.s3.us-east-2.amazonaws.com/autonomous-vehicle-sim/vs02_04.gif) 
+![vs02_reward](images/vs02/reward.png) 
+![vs02_loss](images/vs02/policy_loss.png)  
+
+### Findings
+The control of the vehicle was much smoother when switching to a discrete reward system, but the training was much slower. The model ran for 25 million steps, but never learned past ~4 million. We believe this is because of the torque and speed increase over time. After the first curve, the model would loose control of teh vehicle and not be able to pass the next curve. 
+
+## Next step
+Update the agent to have a max speed and keep it constant for the entire run.
+
+## RL Training Run 03 (Discrete Reward)
+* name: `vs02`
+* training command: `mlagents-learn config/vs03_config.yaml --run-id=sv01 --train`
+* configuration file: `config/vs03_config.yaml`
+* behavioral hyperparameter: 
+  * **Steps**: `25 million` extended to `~35 million`
+  * **Constant Torque**: `300` But limited RPM
+  * **Decision Interval**: `1`
+  * **Max Step**: `120000`
+  * **Reset on Done**: `true`
+  * **Vector Observation Space**: `5`
+  * **Vector Action Space**: `1`
+  * **Number of Concurrent Agents**: `12`
+* Machine Details:
+  * Ran From Unity
+  * GTX 1080
+  * Locally (personal desktop Ubuntu 18.4)
+
+## Updates
+Introduced the build recurrent model (LSTM) and add a mechanism to limit the speed based on the wheel's RPM.
+
+![vs03](https://blainerothrock-public.s3.us-east-2.amazonaws.com/autonomous-vehicle-sim/vs03_04.gif)   
+**TODO**: add latest training images
+
+**TODO**: add video of new track generalization
+
+### Findings
+Although the training results had a lot of variance, this model resulted in a usable generalized model for collecting our CNN data. We were able to build road environments with different road configurations and the model would perform lane keeping. 
