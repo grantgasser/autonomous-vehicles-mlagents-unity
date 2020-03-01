@@ -23,15 +23,17 @@ Every decision interval, observations from the environment are reported to the "
 * X axes velocity from the vehicle's rigidbody
 
 ## Action
+
+### Continuous Reward System (vs01)
 For our initial iteration, there is only one action given from the model, the angle of the wheels. This is given as a continuous value between -1 and 1, then translated to represent the the -30, 30 range of the wheels.
 
-### Future Considerations
-Straight is under represented in the continuous action space. We would like to experiment with a discrete classification action with 3 classes:
-* **-1 degree**: move the wheel 1 degree to the left
+### Discrete Reward System (vs02 & vs03)
+Straight is under represented in the continuous action space. so we create a new experiment with a discrete classification action with 3 classes:
+* **-1 degree**: move the wheel 0.25 degree to the left
 * **0 degree**: continue with the same wheel angle
-* **1 degree**: move the wheel 1 degree to the right
+* **1 degree**: move the wheel 0.25 degree to the right
 
-**Hypothesis**: This will smooth the driving of the vehicle. Our initial training resulted in a car that stays in the center, but is jerky.
+We also gave a slight reward for driving straight. This provided a much smoother control than the continuous reward and resulted in a model we can use for our CNN model.
 
 ## Reward
 After a action is taken a reward is determined based on that action. For each decision interval, the a reward with the range -1 to 1 is given.
