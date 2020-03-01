@@ -7,34 +7,35 @@ import cv2
 import tensorflow as tf
 from tensorflow.keras import datasets, layers, models
 from sklearn.model_selection import train_test_split
+import datetime
 
-DATA_PATH = 'recording_data/'
+DATA_PATHS = ['recording_data/', 'recording_data_curve/']
 OUTPUT_DATA_PATH = 'output/'
 CURRENT_STATE_PATH = '../docs/images/cnn_v1/'
 IMG_EXTENSION = '.png'
 SEED = 42
 TEST_SIZE = 0.2
 
-def read_image_data():
+def read_image_data(idx):
     """
     Reads image data from folder using OpenCV.
 
     Args:
-
+        idx (int): which folder to read from in DATA_PATHS
     Returns:
         images (List[np.array]): each element is an image or np array of size (256,256,3)
         labels (np.array): numpy array of labels (angle columns from csv)
     """
     images = []
-    for i, file in enumerate(os.listdir(DATA_PATH)):
+    for i, file in enumerate(os.listdir(DATA_PATHS[idx])):
         if file.endswith(IMG_EXTENSION):
             # NOTE: cv2 uses BGR, not RGB
-            img = cv2.imread(os.path.join(DATA_PATH, file), 1)
+            img = cv2.imread(os.path.join(DATA_PATHS[idx], file), 1)
             images.append(img)
         elif file.endswith('.csv'):
-            labels = pd.read_csv(os.path.join(DATA_PATH, file))
+            labels = pd.read_csv(os.path.join(DATA_PATHS[idx], file))
 
-    return np.array(images), np.array(labels.wheel_angle)
+    return list(images), list(labels.wheel_angle)
 
 def viz_image(np_image, label):
     """
@@ -56,7 +57,13 @@ def viz_image(np_image, label):
 
 def main():
     # read data
-    images, labels = read_image_data()
+    images = []
+    labels = []
+    for i, _ in enumerate(DATA_PATHS):
+        im, lab = read_image_data(i)
+        images.extend(im)
+        labels.extend(lab)
+    images, labels = np.array(images), np.array(labels)
     assert len(images) == len(labels), 'Input and Label sizes have to be same!'
 
     # for output data
@@ -93,12 +100,16 @@ def main():
     # ---------------
     model.compile(optimizer='adam', loss=tf.keras.losses.MSE)
 
-    history = model.fit(x_train, y_train, epochs=10, validation_data=(x_test, y_test))
+    # tensorboard
+    log_dir = "logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+    tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
+
+    history = model.fit(x_train, y_train, epochs=20, validation_data=(x_test, y_test), callbacks=[tensorboard_callback])
     # ---------------
 
     # evaluate model
     # ---------------
-    plt.plot(history.history['loss'], label='MSE/Loss')
+    plt.plot(history.history['loss'], label='Train MSE/Loss')
     plt.plot(history.history['val_loss'], label='Val MSE/Loss')
     plt.xlabel('Epoch')
     plt.ylabel('MSE/Loss')
