@@ -9,33 +9,37 @@ from tensorflow.keras import datasets, layers, models
 from sklearn.model_selection import train_test_split
 import datetime
 
-DATA_PATHS = ['recording_data/', 'recording_data_curve/']
+#DATA_PATHS = ['recording_data/', 'recording_data_curve/']
+DATA_PATH = 'driving_data/'
+NUM_DATA_SETS = 15
 OUTPUT_DATA_PATH = 'output/'
 CURRENT_STATE_PATH = '../docs/images/cnn_v1/'
 IMG_EXTENSION = '.png'
 SEED = 42
 TEST_SIZE = 0.2
 
-def read_image_data(idx):
+def read_image_data():
     """
     Reads image data from folder using OpenCV.
 
     Args:
-        idx (int): which folder to read from in DATA_PATHS
+
     Returns:
         images (List[np.array]): each element is an image or np array of size (256,256,3)
         labels (np.array): numpy array of labels (angle columns from csv)
     """
     images = []
-    for i, file in enumerate(os.listdir(DATA_PATHS[idx])):
+    labels = []
+    for i, file in enumerate(os.listdir(DATA_PATH)):
         if file.endswith(IMG_EXTENSION):
             # NOTE: cv2 uses BGR, not RGB
-            img = cv2.imread(os.path.join(DATA_PATHS[idx], file), 1)
+            img = cv2.imread(os.path.join(DATA_PATH, file), 1)
             images.append(img)
         elif file.endswith('.csv'):
-            labels = pd.read_csv(os.path.join(DATA_PATHS[idx], file))
+            labs = pd.read_csv(os.path.join(DATA_PATH, file))
+            labels.extend(labs.wheel_angle)
 
-    return list(images), list(labels.wheel_angle)
+    return np.array(images), np.array(labels)
 
 def viz_image(np_image, label):
     """
@@ -57,14 +61,10 @@ def viz_image(np_image, label):
 
 def main():
     # read data
-    images = []
-    labels = []
-    for i, _ in enumerate(DATA_PATHS):
-        im, lab = read_image_data(i)
-        images.extend(im)
-        labels.extend(lab)
-    images, labels = np.array(images), np.array(labels)
+    print('Reading data..')
+    images, labels = read_image_data()
     assert len(images) == len(labels), 'Input and Label sizes have to be same!'
+    print('Finished reading data.')
 
     # for output data
     if not os.path.exists(OUTPUT_DATA_PATH):
@@ -75,6 +75,7 @@ def main():
     viz_image(images[idx], labels[idx])
 
     # train/test split
+    print('Train/test split')
     x_train, x_test, y_train, y_test = train_test_split(images, labels, test_size=TEST_SIZE, random_state=SEED)
 
     # normalize between 0-1
@@ -83,6 +84,7 @@ def main():
     # create model
     # ---------------
     # output size = W (input) - K (filter) + 1 = 256 - 3 + 1 = 254
+    print('Constructing model..')
     model = models.Sequential()
     model.add(layers.Conv2D(x_train.shape[1], (3, 3), activation='relu', input_shape=(x_train.shape[1:])))
     model.add(layers.MaxPooling2D((2, 2)))
@@ -101,10 +103,13 @@ def main():
     model.compile(optimizer='adam', loss=tf.keras.losses.MSE)
 
     # tensorboard
-    log_dir = "logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-    tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
+    # log_dir = "logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+    # tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
 
-    history = model.fit(x_train, y_train, epochs=20, validation_data=(x_test, y_test), callbacks=[tensorboard_callback])
+    history = model.fit(x_train, y_train,
+                        epochs=5, validation_data=(x_test, y_test),
+                        #callbacks=[tensorboard_callback]
+                        )
     # ---------------
 
     # evaluate model
@@ -135,6 +140,5 @@ def main():
     # new_model = tf.keras.models.load_model(os.path.join(OUTPUT_DATA_PATH, 'cnn_v1.h5'))
     # new_predictions = new_model.predict(x_test)
     # np.testing.assert_allclose(predictions, new_predictions, rtol=1e-6, atol=1e-6)
-
 
 main()
