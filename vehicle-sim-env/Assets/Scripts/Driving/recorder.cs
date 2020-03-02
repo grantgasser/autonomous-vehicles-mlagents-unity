@@ -47,7 +47,7 @@ public class recorder : MonoBehaviour
 
     void SetUpTargetFile()
     {
-        string path = dataPath + "/recording_data/" + runId + "_" + "targets" + ".csv";
+        string path = dataPath + "/" + runId + "_" + "targets" + ".csv";
         File.AppendAllText(path, "run_id,file_counter,wheel_angle,front_distance_to_center,back_distance_to_center,rpm\n"); 
     }
 
@@ -68,7 +68,7 @@ public class recorder : MonoBehaviour
         var Bytes = Image.EncodeToPNG();
         Destroy(Image);
 
-        string path = dataPath + "/recording_data/" + runId + "_" + FileCounter + ".png";
+        string path = dataPath + "/" + runId + "_" + FileCounter + ".png";
         File.WriteAllBytes(path, Bytes);
         FileCounter++;
     }
@@ -77,7 +77,7 @@ public class recorder : MonoBehaviour
     {
         var target = vehicle.wheelAngle;
 
-        string path = dataPath + "/recording_data/" + runId + "_" + "targets" + ".csv";
+        string path = dataPath + "/" + runId + "_" + "targets" + ".csv";
         string text = runId + "," + FileCounter.ToString() + "," + target.ToString() + "," + vehicle.frontDistanceToCenter.ToString() + "," + vehicle.backDistanceToCenter.ToString() + "," + vehicle.rpm + "\n";
         File.AppendAllText(path, text);
     }
