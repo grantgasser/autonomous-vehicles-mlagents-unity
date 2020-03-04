@@ -30,3 +30,5 @@
   - Targets: (wheel angle, torque, ...)
 * Stretch goal: Use lidar (or radar) and add several RL agents 
 
+## Packaging and Running 
+[AWS Deep Learning AMI](https://aws.amazon.com/getting-started/tutorials/train-deep-learning-model-aws-ec2-containers/)
