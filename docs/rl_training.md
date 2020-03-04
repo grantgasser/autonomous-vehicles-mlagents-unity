@@ -96,10 +96,8 @@ Update the agent to have a max speed and keep it constant for the entire run.
 ## Updates
 Introduced the build recurrent model (LSTM) and add a mechanism to limit the speed based on the wheel's RPM.
 
-![vs03](https://blainerothrock-public.s3.us-east-2.amazonaws.com/autonomous-vehicle-sim/vs03_04.gif)   
-**TODO**: add latest training images
-
-**TODO**: add video of new track generalization
-
+**Click to view on YouTube**:
+![](http://img.youtube.com/vi/hvOFj8S42Gw/0.jpg)](http://www.youtube.com/watch?v=hvOFj8S42Gw "Lane Keeping with Discrete Action Reinforcement Learning")
+   
 ### Findings
 Although the training results had a lot of variance, this model resulted in a usable generalized model for collecting our CNN data. We were able to build road environments with different road configurations and the model would perform lane keeping. 
