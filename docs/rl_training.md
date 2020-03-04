@@ -99,6 +99,8 @@ Introduced the build recurrent model (LSTM) and add a mechanism to limit the spe
 [![](http://img.youtube.com/vi/hvOFj8S42Gw/0.jpg)](http://www.youtube.com/watch?v=hvOFj8S42Gw "Lane Keeping with Discrete Action Reinforcement Learning")
 
 (click to view on YouTube)
+
+![vs03_04_reward](images/vs03/vs04_04_reward.png) 
    
 ### Findings
 Although the training results had a lot of variance, this model resulted in a usable generalized model for collecting our CNN data. We were able to build road environments with different road configurations and the model would perform lane keeping. 
