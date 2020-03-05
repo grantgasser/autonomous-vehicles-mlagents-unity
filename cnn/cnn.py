@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 import cv2
 import tensorflow as tf
-from tensorflow.keras import datasets, layers, models
+from tensorflow.keras import layers, models
 from sklearn.model_selection import train_test_split
 import datetime
 
@@ -107,7 +107,7 @@ def main():
     # tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
 
     history = model.fit(x_train, y_train,
-                        epochs=5, validation_data=(x_test, y_test),
+                        epochs=10, validation_data=(x_test, y_test),
                         #callbacks=[tensorboard_callback]
                         )
     # ---------------
