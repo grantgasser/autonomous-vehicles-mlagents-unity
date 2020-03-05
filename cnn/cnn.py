@@ -8,15 +8,7 @@ import tensorflow as tf
 from tensorflow.keras import layers, models
 from sklearn.model_selection import train_test_split
 import datetime
-
-#DATA_PATHS = ['recording_data/', 'recording_data_curve/']
-DATA_PATH = 'driving_data/'
-NUM_DATA_SETS = 15
-OUTPUT_DATA_PATH = 'output/'
-CURRENT_STATE_PATH = '../docs/images/cnn_v1/'
-IMG_EXTENSION = '.png'
-SEED = 42
-TEST_SIZE = 0.2
+import constants
 
 def read_image_data():
     """
@@ -30,13 +22,13 @@ def read_image_data():
     """
     images = []
     labels = []
-    for i, file in enumerate(os.listdir(DATA_PATH)):
-        if file.endswith(IMG_EXTENSION) and file[9] != '1':  # skip 1st dark data set
+    for i, file in enumerate(os.listdir(constants.DATA_PATH)):
+        if file.endswith(constants.IMG_EXTENSION) and file[9] != '1':  # skip 1st dark data set
             # NOTE: cv2 uses BGR, not RGB
-            img = cv2.imread(os.path.join(DATA_PATH, file), 1)
+            img = cv2.imread(os.path.join(constants.DATA_PATH, file), 1)
             images.append(img)
         elif file.endswith('.csv') and file[9] != '1':
-            labs = pd.read_csv(os.path.join(DATA_PATH, file))
+            labs = pd.read_csv(os.path.join(constants.DATA_PATH, file))
             labels.extend(labs.wheel_angle)
 
     return np.array(images), np.array(labels)
@@ -54,8 +46,8 @@ def viz_image(np_image, label):
     img = cv2.cvtColor(np_image, cv2.COLOR_BGR2RGB)
     plt.imshow(img)
     plt.title('Example Input Image w/ label=' + str(label))
-    plt.savefig(OUTPUT_DATA_PATH + 'example_image')
-    plt.savefig(CURRENT_STATE_PATH + 'example_image')
+    plt.savefig(constants.OUTPUT_DATA_PATH + 'example_image')
+    plt.savefig(constants.CURRENT_STATE_PATH + 'example_image')
     plt.show()
 
 
@@ -67,16 +59,27 @@ def main():
     print('Finished reading data.')
 
     # for output data
-    if not os.path.exists(OUTPUT_DATA_PATH):
-        os.makedirs(OUTPUT_DATA_PATH)
+    if not os.path.exists(constants.OUTPUT_DATA_PATH):
+        os.makedirs(constants.OUTPUT_DATA_PATH)
 
     # visualize data
     idx = np.random.randint(0, len(images))
     viz_image(images[idx], labels[idx])
 
+    # small subset of data for testing
+    images = images[4000:5000]
+    labels = labels[4000:5000]
+
     # train/test split
     print('Train/test split')
-    x_train, x_test, y_train, y_test = train_test_split(images, labels, test_size=TEST_SIZE, random_state=SEED)
+    x_train, x_test, y_train, y_test = train_test_split(images,
+                                                        labels,
+                                                        test_size=constants.TEST_SIZE,
+                                                        random_state=constants.SEED
+                                                        )
+    # write test data for later prediction
+    np.save(os.path.join(constants.OUTPUT_DATA_PATH, 'x_test.npy'), x_test)
+    np.save(os.path.join(constants.OUTPUT_DATA_PATH, 'y_test.npy'), y_test)
 
     # normalize between 0-1
     x_train, x_test = x_train / 255.0, x_test / 255.0
@@ -107,7 +110,7 @@ def main():
     # tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
 
     history = model.fit(x_train, y_train,
-                        epochs=10, validation_data=(x_test, y_test),
+                        epochs=2, validation_data=(x_test, y_test),
                         #callbacks=[tensorboard_callback]
                         )
     # ---------------
@@ -119,8 +122,8 @@ def main():
     plt.xlabel('Epoch')
     plt.ylabel('MSE/Loss')
     plt.legend(loc='upper right')
-    plt.savefig(OUTPUT_DATA_PATH + 'loss_plot')
-    plt.savefig(CURRENT_STATE_PATH + 'loss_plot')
+    plt.savefig(constants.OUTPUT_DATA_PATH + 'loss_plot')
+    plt.savefig(constants.CURRENT_STATE_PATH + 'loss_plot')
     plt.show()
 
     test_loss = model.evaluate(x_test, y_test, verbose=2)
@@ -133,12 +136,10 @@ def main():
     # reset metrics before saving
     model.reset_metrics()
 
-    model.save(os.path.join(OUTPUT_DATA_PATH, 'cnn_v1.h5'))
+    model.save(os.path.join(constants.OUTPUT_DATA_PATH, 'cnn_v1.h5'))
     # ---------------
 
-    # test load and predict with saved model - it works.
-    # new_model = tf.keras.models.load_model(os.path.join(OUTPUT_DATA_PATH, 'cnn_v1.h5'))
-    # new_predictions = new_model.predict(x_test)
-    # np.testing.assert_allclose(predictions, new_predictions, rtol=1e-6, atol=1e-6)
+
+
 
 main()
