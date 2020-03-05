@@ -31,11 +31,11 @@ def read_image_data():
     images = []
     labels = []
     for i, file in enumerate(os.listdir(DATA_PATH)):
-        if file.endswith(IMG_EXTENSION):
+        if file.endswith(IMG_EXTENSION) and file[9] != '1':  # skip 1st dark data set
             # NOTE: cv2 uses BGR, not RGB
             img = cv2.imread(os.path.join(DATA_PATH, file), 1)
             images.append(img)
-        elif file.endswith('.csv'):
+        elif file.endswith('.csv') and file[9] != '1':
             labs = pd.read_csv(os.path.join(DATA_PATH, file))
             labels.extend(labs.wheel_angle)
 
