@@ -66,9 +66,10 @@ def main():
     idx = np.random.randint(0, len(images))
     viz_image(images[idx], labels[idx])
 
-    # small subset of data for testing
-    images = images[4000:5000]
-    labels = labels[4000:5000]
+    # use smaller subset (2000)
+    # indexes = np.random.randint(0, len(images), 2000)
+    # images = images[indexes]
+    # labels = labels[indexes]
 
     # train/test split
     print('Train/test split')
@@ -110,7 +111,7 @@ def main():
     # tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
 
     history = model.fit(x_train, y_train,
-                        epochs=2, validation_data=(x_test, y_test),
+                        epochs=5, validation_data=(x_test, y_test),
                         #callbacks=[tensorboard_callback]
                         )
     # ---------------
