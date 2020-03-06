@@ -41,5 +41,6 @@ cnn/recording_data/
 cnn/recording_data_curve/
 cnn/output/
 cnn/logs/
+cnn/driving_data/
 
 .idea

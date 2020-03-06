@@ -24,10 +24,10 @@
 * [ML Agents paper](https://arxiv.org/pdf/1809.02627.pdf)
 
 ## Project Plan
-* Part 1: lane keeping with RL agent, after trained, collect images (1-8 cameras) with associated wheel angle and acceleration
-* Part 2: Conv Net in TensorFlow, connect to Unity environment with [Python API](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Python-API.md)
-  - Input: Images collected from RL agent and (our driving)
-  - Targets: (wheel angle, torque, ...)
+* Part 1: lane keeping with RL agent, after trained, collect images with associated wheel angle and acceleration
+* Part 2: Conv Net in TensorFlow
+  - Input: Images collected from RL agent
+  - Targets: Wheel Angle
 * Stretch goal: Use lidar (or radar) and add several RL agents 
 
 ## Packaging and Running 
