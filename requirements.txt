@@ -1,2 +1,5 @@
 mlagents==0.13.1
 tensorflow-gpu
+pandas==1.0.1
+opencv-python
+scikit-learn==0.22.1

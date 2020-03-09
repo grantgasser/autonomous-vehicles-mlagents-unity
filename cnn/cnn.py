@@ -1,9 +1,8 @@
 import os
 import matplotlib.pyplot as plt
-from PIL import Image
 import pandas as pd
 import numpy as np
-import cv2
+#import cv2
 import tensorflow as tf
 from tensorflow.keras import layers, models
 from sklearn.model_selection import train_test_split
@@ -17,7 +16,7 @@ def read_image_data():
     Args:
 
     Returns:
-        images (List[np.array]): each element is an image or np array of size (256,256,3)
+        images (np.array): each element is an image or np array of size (256,256,3)
         labels (np.array): numpy array of labels (angle columns from csv)
     """
     images = []
@@ -25,7 +24,7 @@ def read_image_data():
     for i, file in enumerate(os.listdir(constants.DATA_PATH)):
         if file.endswith(constants.IMG_EXTENSION) and file[9] != '1':  # skip 1st dark data set
             # NOTE: cv2 uses BGR, not RGB
-            img = cv2.imread(os.path.join(constants.DATA_PATH, file), 1)
+            img = imread(os.path.join(constants.DATA_PATH, file), 1)
             images.append(img)
         elif file.endswith('.csv') and file[9] != '1':
             labs = pd.read_csv(os.path.join(constants.DATA_PATH, file))
@@ -65,11 +64,6 @@ def main():
     # visualize data
     idx = np.random.randint(0, len(images))
     viz_image(images[idx], labels[idx])
-
-    # use smaller subset (2000)
-    # indexes = np.random.randint(0, len(images), 2000)
-    # images = images[indexes]
-    # labels = labels[indexes]
 
     # train/test split
     print('Train/test split')
@@ -129,7 +123,6 @@ def main():
 
     test_loss = model.evaluate(x_test, y_test, verbose=2)
     print('\nTest Loss:', test_loss)
-    #predictions = model.predict(x_test)
     # ---------------
 
     # save model
@@ -139,8 +132,6 @@ def main():
 
     model.save(os.path.join(constants.OUTPUT_DATA_PATH, 'cnn_v1.h5'))
     # ---------------
-
-
 
 
 main()

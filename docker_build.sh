@@ -1,2 +1,2 @@
 #/bin/bash
-sudo docker build -t rl-training:$1 .
+sudo docker build -t autonomous-vehicle:$1 .
