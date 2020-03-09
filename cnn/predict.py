@@ -17,9 +17,8 @@ new_predictions = saved_model.predict(x_test)
 
 assert(len(new_predictions) == len(y_test))
 
+print('\nViewing some predictions:')
 for i, pred in enumerate(new_predictions):
-    print('pred:', pred, 'y_test', y_test[i])
-    if i == 20:
+    print('pred:', pred, 'y_test:', y_test[i])
+    if i == 10:
         break
-
-#np.testing.assert_allclose(predictions, new_predictions, rtol=1e-6, atol=1e-6)

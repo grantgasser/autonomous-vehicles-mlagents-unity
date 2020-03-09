@@ -56,7 +56,7 @@ pred: [-0.09580775] y_test -0.25
 ```
 
 Note how the predictions are all small, negative numbers.
-We posit that this model fell into a local minima. Also, 
+We guess that this model fell into a local minima. Also, 
 the targets are all multiples of `.25` - we could round 
 the predictions to the nearest `.25` interval but they would
 still be unsatisfactory.
@@ -69,4 +69,4 @@ such may lead the car to a position that would capture an image
 it has never seen before. For example, if there were several negative predictions in a row
 and the car was not on a left turn, then the car would be facing left
 of the track and would unlikely be able to correct itself like the RL agent did. This would require
-generating image data simulates those scenarios.
+generating image data that simulates those scenarios.
