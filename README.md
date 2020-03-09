@@ -7,28 +7,37 @@
 * [Grant Gasser](https://www.linkedin.com/in/grantgasser/)
 * [Blaine Rothrock](https://www.linkedin.com/in/brothrock/)
 
-## V1 Results
-![vs01_gif](docs/images/vs01/vs01.gif) 
-![vs01_reward](docs/images/vs01/reward_log.png) 
-![vs01_loss](docs/images/vs01/loss_log.png) 
+## Project Overview
+A simulation model using Unity and MLAgents to explore a solution for lane keeping in autonomous vehicles. The purpose of this project is to explore deep learning in simulation environment and explore Unity's ML-Agent toolkit. We took a 2 part approach in exploring this problem:
 
-### Thoughts on V1 and Next Steps
-* Lane-keeping is fairly good, want to discretize actions to limit "jerkiness"
-* Train on AWS using pre-configured [Deep Learning AMI](https://aws.amazon.com/marketplace/pp/B077GCH38C) 
-* Test on different tracks
-* Move on to Part 2 (see **Project Plan** towards bottom)
+* **Part 1**: Build a environment using Unity to train a vehicle agent using reinforcement learning.
+  * This model will be guided using oracle knowledge of the world.
+  * This is intended to save time with the ability to generate driving data.
+* **Part 2**: Using the RL modeled trainined in part 1, training a CNN model for lane keeping using only data internal to the vehicle.
+  * This is to simulate a more realistic model
+
+See Detailed [Slide Deck](docs/presentation_deck.pdf) for more info
+
+## Overview of Reinforcement Learning Results
+![vs03_02_gif](docs/images/vs03/vs03_02_full_track_8x.gif)
+8x playback
+
+For more details see the following: 
+* Trained model apps:
+  * [Mac](https://blainerothrock-public.s3.us-east-2.amazonaws.com/autonomous-vehicle-sim/submission/mac_road003_vs_03_02.zip)
+  * [Linux](https://blainerothrock-public.s3.us-east-2.amazonaws.com/autonomous-vehicle-sim/submission/linux_road003_vs03_02.zip)
+* [RL Training](docs/rl_training.md)
+* [Simulation Environment](docs/simulation_environment.md)
+* [Unity](docs/Unity.md)
+* [Vehicle Agent](docs/vehicle_agent.md)
+
+## Overview of CNN Results
+**TODO**:
+
+For more details see [CNN Training](docs/cnn.md)
 
 ### Unity Environment + ML Agents
 * With our self-built driving environment in Unity, we use the ML Agents toolkit to train our car to drive within lanes using reinforcement learning
 * [ML Agents repo](https://github.com/Unity-Technologies/ml-agents)
 * [ML Agents paper](https://arxiv.org/pdf/1809.02627.pdf)
 
-## Project Plan
-* Part 1: lane keeping with RL agent, after trained, collect images with associated wheel angle and acceleration
-* Part 2: Conv Net in TensorFlow
-  - Input: Images collected from RL agent
-  - Targets: Wheel Angle
-* Stretch goal: Use lidar (or radar) and add several RL agents 
-
-## Packaging and Running 
-[AWS Deep Learning AMI](https://aws.amazon.com/getting-started/tutorials/train-deep-learning-model-aws-ec2-containers/)
