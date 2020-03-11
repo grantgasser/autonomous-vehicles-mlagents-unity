@@ -3,10 +3,6 @@
 
 * [Development Documentation](docs/README.md)
 
-### Authors
-* [Grant Gasser](https://www.linkedin.com/in/grantgasser/)
-* [Blaine Rothrock](https://www.linkedin.com/in/brothrock/)
-
 ## Project Overview
 A simulation model using Unity and MLAgents to explore a solution for lane keeping in autonomous vehicles. The purpose of this project is to explore deep learning in simulation environment and explore Unity's ML-Agent toolkit. We took a 2 part approach in exploring this problem:
 
@@ -32,10 +28,14 @@ For more details see the following:
 * [Vehicle Agent](docs/vehicle_agent.md)
 
 ## Overview of CNN Results
-The CNN did not give us our desired results in the given amount of time. For more details see [CNN Training](docs/cnn.md).
+The CNN did not give us our desired results in the given amount of time. We decided not to include the running of our CNN in our docker image because it does not provide satisfactory results. For more details see [CNN Training](docs/cnn.md).
 
 ### Inspiration
-* With our self-built driving environment in Unity, we use the ML Agents toolkit to train our car to drive within lanes using reinforcement learning
 * [ML Agents repo](https://github.com/Unity-Technologies/ml-agents)
 * [ML Agents paper](https://arxiv.org/pdf/1809.02627.pdf)
+* Build a driving environment in Unity, then use the ML Agents toolkit to train our car (agent) to drive within lanes using reinforcement learning
+
+### Authors
+* [Grant Gasser](https://www.linkedin.com/in/grantgasser/)
+* [Blaine Rothrock](https://www.linkedin.com/in/brothrock/)
 
