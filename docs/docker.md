@@ -3,6 +3,10 @@
 ## Overview
 For training, we have set up a docker containiner that can be deployed to a server. Unity cannot be easily ran remotly because it requires a license, but a unity execuitable can be built and ran in headless mode for training the rl model.
 
+## Docker Hub
+If you just want to pull the image from Docker Hub:
+`docker pull grantgasser/autonomous-vehicles-mlagents-unity`
+
 ## Docker Helpers
 * Dockerfile
 	- Based on the python docker image base
