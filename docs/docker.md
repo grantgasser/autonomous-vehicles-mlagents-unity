@@ -6,7 +6,7 @@ For training, we have set up a docker containiner that can be deployed to a serv
 ## 1. Docker Hub
 If you just want to pull the image from Docker Hub:
 
-`docker pull grantgasser/autonomous-vehicles-mlagents-unity`
+`docker pull grantgasser/autonomous-vehicles-mlagents-unity:submission`
 
 ## 2. Build and Run without Docker Hub
 * Dockerfile
