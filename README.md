@@ -30,16 +30,16 @@ For more details see the following:
 ### Reinforcement Learning I/O
 See more details in [Vehicle Agent.](docs/vehicle_agent.md)
 #### Observations
-* Wheel Angle, normalized [-1, 1]
-* Front Distance to Center, normalized [-1, 1]
-* Back Distance to Center, normalized [-1, 1]
+* Wheel Angle, normalized `[-1, 1]`
+* Front Distance to Center, normalized `[-1, 1]`
+* Back Distance to Center, normalized `[-1, 1]`
 * Z axes velocity from the vehicle's rigidbody
 * X axes velocity from the vehicle's rigidbody
 
 #### Actions
  * **0**: no change in wheel angle
- * **1**: add .25 degrees (turn right)
- * **2**: add -.25 degrees (turn left)
+ * **1**: add `.25` degrees (turn right)
+ * **2**: add `-.25` degrees (turn left)
 
 ## Overview of CNN Results
 The CNN did not give us our desired results in the given amount of time. We decided not to include the running of our CNN in our docker image because it does not provide satisfactory results. For more details see [CNN Training](docs/convolutional_net.md).
