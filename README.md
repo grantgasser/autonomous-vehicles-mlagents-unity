@@ -5,6 +5,9 @@
 * Unity Apps for best trained RL Model:
   - [Mac](https://blainerothrock-public.s3.us-east-2.amazonaws.com/autonomous-vehicle-sim/submission/mac_road003_vs_03_02.zip)
   - [Linux](https://blainerothrock-public.s3.us-east-2.amazonaws.com/autonomous-vehicle-sim/submission/linux_road003_vs03_02.zip)
+  
+## Docker
+[Docker docs](docs/docker.md)
 
 ## Project Overview
 A simulation model using Unity and MLAgents to explore a solution for lane keeping in autonomous vehicles. The purpose of this project is to explore deep learning in simulation environment and explore Unity's ML-Agent toolkit. We took a 2 part approach in exploring this problem:
