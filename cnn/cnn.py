@@ -2,7 +2,7 @@ import os
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
-#import cv2
+import cv2
 import tensorflow as tf
 from tensorflow.keras import layers, models
 from sklearn.model_selection import train_test_split
@@ -24,7 +24,7 @@ def read_image_data():
     for i, file in enumerate(os.listdir(constants.DATA_PATH)):
         if file.endswith(constants.IMG_EXTENSION) and file[9] != '1':  # skip 1st dark data set
             # NOTE: cv2 uses BGR, not RGB
-            img = imread(os.path.join(constants.DATA_PATH, file), 1)
+            img = cv2.imread(os.path.join(constants.DATA_PATH, file), 1)
             images.append(img)
         elif file.endswith('.csv') and file[9] != '1':
             labs = pd.read_csv(os.path.join(constants.DATA_PATH, file))
