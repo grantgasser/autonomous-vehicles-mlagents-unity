@@ -29,9 +29,9 @@ For our initial iteration, there is only one action given from the model, the an
 
 ### Discrete Reward System (vs02 & vs03)
 Straight is under represented in the continuous action space. so we create a new experiment with a discrete classification action with 3 classes:
-* **-1 degree**: move the wheel 0.25 degree to the left
-* **0 degree**: continue with the same wheel angle
-* **1 degree**: move the wheel 0.25 degree to the right
+ * **0**: no change in wheel angle
+ * **1**: add .25 degrees (turn right)
+ * **2**: add -.25 degrees (turn left
 
 We also gave a slight reward for driving straight. This provided a much smoother control than the continuous reward and resulted in a model we can use for our CNN model.
 
