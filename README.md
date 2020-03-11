@@ -28,7 +28,7 @@ For more details see the following:
 * [Vehicle Agent](docs/vehicle_agent.md)
 
 ### Reinforcement Learning I/O
-See more details [here.](docs/vehicle_agent.md)
+See more details in [Vehicle Agent.](docs/vehicle_agent.md)
 #### Observations
 * Wheel Angle, normalized [-1, 1]
 * Front Distance to Center, normalized [-1, 1]
