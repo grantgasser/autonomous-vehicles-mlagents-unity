@@ -5,7 +5,7 @@ Using data generated from our RL agent, we trained a CNN to take an image as inp
 ## Design
 * Adam Optimizer
 * Mean Squared Error Loss
-* Architecture:
+* Architecture in TensorFlow 2:
 ```python
 model = models.Sequential()
 model.add(layers.Conv2D(x_train.shape[1], (3, 3), activation='relu', input_shape=(x_train.shape[1:])))
