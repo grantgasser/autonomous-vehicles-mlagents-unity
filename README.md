@@ -32,11 +32,9 @@ For more details see the following:
 * [Vehicle Agent](docs/vehicle_agent.md)
 
 ## Overview of CNN Results
-**TODO**:
+The CNN did not give us our desired results in the given amount of time. For more details see [CNN Training](docs/cnn.md)
 
-For more details see [CNN Training](docs/cnn.md)
-
-### Unity Environment + ML Agents
+### Inspiration
 * With our self-built driving environment in Unity, we use the ML Agents toolkit to train our car to drive within lanes using reinforcement learning
 * [ML Agents repo](https://github.com/Unity-Technologies/ml-agents)
 * [ML Agents paper](https://arxiv.org/pdf/1809.02627.pdf)
