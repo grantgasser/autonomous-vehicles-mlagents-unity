@@ -37,9 +37,9 @@ See more details in [Vehicle Agent.](docs/vehicle_agent.md)
 * X axes velocity from the vehicle's rigidbody
 
 #### Actions
- * 0: no change in wheel angle
- * 1: add .25 degrees (turn right)
- * 2: add -.25 degrees (turn left)
+ * **0**: no change in wheel angle
+ * **1**: add .25 degrees (turn right)
+ * **2**: add -.25 degrees (turn left)
 
 ## Overview of CNN Results
 The CNN did not give us our desired results in the given amount of time. We decided not to include the running of our CNN in our docker image because it does not provide satisfactory results. For more details see [CNN Training](docs/convolutional_net.md).
