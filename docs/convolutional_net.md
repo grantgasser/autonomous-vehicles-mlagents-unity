@@ -1,12 +1,8 @@
 # Part 2 - Convolutional Neural Network
 ## Summary
-Using data generated from our RL agent, we trained a CNN to take an image from a camera set at the front of the vehicle
-and predict the wheel angle of the vehicle. That way, theoretically, the vehicle
-could turn to that wheel angle and hopefully drive the track as well
-as the RL agent. 
+Using data generated from our RL agent, we trained a CNN to take an image as input and predict the wheel angle of the vehicle. That way, theoretically, the vehicle could turn to that wheel angle and hopefully drive the track as well as the RL agent. 
 
-## Overview
-### Design
+## Design
 * Adam Optimizer
 * Mean Squared Error Loss
 * Architecture:
@@ -20,6 +16,8 @@ model.add(layers.Flatten())
 model.add(layers.Dense(64, activation='relu'))
 model.add(layers.Dense(1))
 ```
+## Data
+[Download and view](https://blainerothrock-public.s3.us-east-2.amazonaws.com/autonomous-vehicle-sim/driving_data_03_01.zip) the data used to train the CNN.
 
 #### Input Example:
 ![Example Image](images/cnn_v1/example_image.png)
@@ -30,12 +28,11 @@ model.add(layers.Dense(1))
 We think the validation loss might have been lower due 
 to dropout that TensorFlow employs.
 
-
 ## Steps
 ### Train locally with small dataset (800 images)
-Model quickly minimized loss to `<1` after just a couple epcochs. 
+Model quickly minimized loss to `<1` after just a couple epochs. 
 We were worried that it might be overfitting, so we decided
-to generate many more images and using different tracks. 
+to generate many more images and use different tracks. 
 
 ### Train on AWS with 11,000 images 
 * 10X speedup using `p2.xlarge` instance
@@ -57,16 +54,17 @@ pred: [-0.09580775] y_test -0.25
 
 Note how the predictions are all small, negative numbers.
 We guess that this model fell into a local minima. Also, 
-the targets are all multiples of `.25` - we could round 
-the predictions to the nearest `.25` interval but they would
+the targets are all multiples of `.25` - While we could round 
+the predictions to the nearest `.25` interval, they would
 still be unsatisfactory.
 
 ## Further Thoughts
-### Even if the predictions were close...
 While working on **Part 2** we became skeptical that the CNN would be able to drive
 the car because even if the predictions were close, a few incorrect predictions
-such may lead the car to a position that would capture an image
-it has never seen before. For example, if there were several negative predictions in a row
+such may lead the car to a position that would capture an image that is very different
+from any image it has ever seen before. For example, if there were several negative predictions in a row
 and the car was not on a left turn, then the car would be facing left
 of the track and would unlikely be able to correct itself like the RL agent did. This would require
 generating image data that simulates those scenarios.
+
+Essentially, the test distribution could be radically different than the training distribution.
