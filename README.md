@@ -2,6 +2,7 @@
 ## Advanced Deep Learning Project
 
 * [Development Documentation](docs/README.md)
+* [Setup Video](https://youtu.be/Ike1bEuBuNI)
 
 ## Project Overview
 A simulation model using Unity and MLAgents to explore a solution for lane keeping in autonomous vehicles. The purpose of this project is to explore deep learning in simulation environment and explore Unity's ML-Agent toolkit. We took a 2 part approach in exploring this problem:
