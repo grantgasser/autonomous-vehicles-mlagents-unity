@@ -28,7 +28,7 @@ For more details see the following:
 * [Vehicle Agent](docs/vehicle_agent.md)
 
 ## Overview of CNN Results
-The CNN did not give us our desired results in the given amount of time. We decided not to include the running of our CNN in our docker image because it does not provide satisfactory results. For more details see [CNN Training](docs/cnn.md).
+The CNN did not give us our desired results in the given amount of time. We decided not to include the running of our CNN in our docker image because it does not provide satisfactory results. For more details see [CNN Training](docs/convolutional_net.md).
 
 ### Inspiration
 * [ML Agents repo](https://github.com/Unity-Technologies/ml-agents)
