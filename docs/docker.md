@@ -30,8 +30,3 @@ If you just want to pull the image from Docker Hub:
 	- $0 = runid (e.g. test01)
 	- $1 = number of environment (e.g. 1)
 		- Only run more environments if using the GPU (we trainined with 6)
-
-### CNN
-* `cd cnn`
-* Train the CNN: `./train.sh`
-* Make predictions: `./predict.py`
