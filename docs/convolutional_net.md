@@ -19,7 +19,8 @@ model.add(layers.Dense(1))
 ## Data
 [Download and view](https://blainerothrock-public.s3.us-east-2.amazonaws.com/autonomous-vehicle-sim/driving_data_03_01.zip) the data used to train the CNN.
 
-#### Input Example:
+#### Input Example: 
+The input data says that the RL agent had the wheels turned at -.75 degrees (a little to the left) which makes sense since the car is in the midst of a left turn.
 ![Example Image](images/cnn_v1/example_image.png)
 
 #### Loss:
