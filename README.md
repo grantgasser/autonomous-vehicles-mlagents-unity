@@ -1,5 +1,4 @@
 # Autonomous Driving in Unity using ML Agents 
-## Advanced Deep Learning Project
 
 * [Development Documentation](docs/README.md)
 * [Setup Video](https://youtu.be/Ike1bEuBuNI)
